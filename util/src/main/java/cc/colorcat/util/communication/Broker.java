@@ -91,10 +91,12 @@ public final class Broker {
         if (sticky) {
             last = new SoftReference<>(subject);
         }
-        if (isMainThread()) {
-            deliverMulti(subscribers, subject);
-        } else {
-            handler.post(new Multi(subscribers, subject));
+        if (!subscribers.isEmpty()) {
+            if (isMainThread()) {
+                deliverMulti(subscribers, subject);
+            } else {
+                handler.post(new Multi(subscribers, subject));
+            }
         }
     }
 
