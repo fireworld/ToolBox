@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRoot.setGravity(Gravity.CENTER);
 
         mBtn1 = fillButton("test communication");
-        mBtn2 = fillButton("test VHolder");
+        mBtn2 = fillButton("test ViewHolder");
         setContentView(mRoot);
     }
 
