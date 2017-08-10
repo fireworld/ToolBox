@@ -5,21 +5,21 @@ package cc.colorcat.util.communication;
  * xx.ch@outlook.com
  */
 public final class Subject {
-    private String action;
-    private Object pack;
+    private String msg;
+    private Object extra;
 
-    private Subject(String action, Object pack) {
-        this.action = action;
-        this.pack = pack;
+    private Subject(String msg, Object extra) {
+        this.msg = msg;
+        this.extra = extra;
     }
 
-    public String getAction() {
-        return action;
+    public String msg() {
+        return msg;
     }
 
     @SuppressWarnings(value = "unchecked")
-    public <T> T getPack() {
-        return (T) pack;
+    public <T> T extra() {
+        return (T) extra;
     }
 
     @Override
@@ -29,39 +29,40 @@ public final class Subject {
 
         Subject subject = (Subject) o;
 
-        if (!action.equals(subject.action)) return false;
-        return pack != null ? pack.equals(subject.pack) : subject.pack == null;
+        if (!msg.equals(subject.msg)) return false;
+        return extra != null ? extra.equals(subject.extra) : subject.extra == null;
+
     }
 
     @Override
     public int hashCode() {
-        int result = action.hashCode();
-        result = 31 * result + (pack != null ? pack.hashCode() : 0);
+        int result = msg.hashCode();
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Subject{" +
-                "action='" + action + '\'' +
-                ", pack=" + pack +
+                "msg='" + msg + '\'' +
+                ", extra=" + extra +
                 '}';
     }
 
-    public static Subject create(String action, Object pack) {
-        if (action == null) {
-            throw new NullPointerException("action == null");
+    public static Subject create(String msg, Object extra) {
+        if (msg == null) {
+            throw new NullPointerException("msg == null");
         }
-        if (pack == null) {
-            throw new NullPointerException("pack == null");
+        if (extra == null) {
+            throw new NullPointerException("extra == null");
         }
-        return new Subject(action, pack);
+        return new Subject(msg, extra);
     }
 
-    public static Subject create(String action) {
-        if (action == null) {
-            throw new NullPointerException("action == null");
+    public static Subject create(String msg) {
+        if (msg == null) {
+            throw new NullPointerException("msg == null");
         }
-        return new Subject(action, null);
+        return new Subject(msg, null);
     }
 }
