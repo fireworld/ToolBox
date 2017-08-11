@@ -1,4 +1,4 @@
-package cc.colorcat.util.adapter;
+package cc.colorcat.util.widget;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;

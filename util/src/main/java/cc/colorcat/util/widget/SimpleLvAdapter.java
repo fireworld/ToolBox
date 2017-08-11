@@ -1,4 +1,4 @@
-package cc.colorcat.util.adapter;
+package cc.colorcat.util.widget;
 
 import android.support.annotation.LayoutRes;
 import android.view.View;
@@ -11,11 +11,11 @@ import java.util.List;
  * Created by cxx on 2017/8/10.
  * xx.ch@outlook.com
  */
-public abstract class LvAdapter<T> extends BaseAdapter {
+public abstract class SimpleLvAdapter<T> extends BaseAdapter {
     private final List<T> mData;
     private final int mLayoutResId;
 
-    public LvAdapter(List<T> data, @LayoutRes int resId) {
+    public SimpleLvAdapter(List<T> data, @LayoutRes int resId) {
         mData = data;
         mLayoutResId = resId;
     }

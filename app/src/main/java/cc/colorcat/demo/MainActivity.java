@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout mRoot;
     private Button mBtn1;
     private Button mBtn2;
+    private Button mBtn3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRoot.setGravity(Gravity.CENTER);
 
         mBtn1 = fillButton("test communication");
-        mBtn2 = fillButton("test ViewHolder");
+        mBtn2 = fillButton("test SimpleLvAdapter");
+        mBtn3 = fillButton("test SimpleRvAdapter");
         setContentView(mRoot);
     }
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == mBtn1) {
             navigateTo(AActivity.class);
         } else if (v == mBtn2) {
-
+            navigateTo(CourseActivity.class);
+        } else if (v == mBtn3) {
+            navigateTo(CourseListActivity.class);
         }
     }
 

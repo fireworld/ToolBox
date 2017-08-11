@@ -1,4 +1,4 @@
-package cc.colorcat.util.adapter;
+package cc.colorcat.util.widget;
 
 import android.support.annotation.LayoutRes;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
  * Created by cxx on 2017/8/10.
  * xx.ch@outlook.com
  */
-public abstract class LvCommonAdapter extends BaseAdapter {
+public abstract class LvAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -19,6 +19,17 @@ public abstract class LvCommonAdapter extends BaseAdapter {
         inflateData(holder);
         return holder.getRoot();
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public abstract int getViewTypeCount();
+
+    @Override
+    public abstract int getItemViewType(int position);
 
     @LayoutRes
     public abstract int getLayoutResId(int position, int viewType);
