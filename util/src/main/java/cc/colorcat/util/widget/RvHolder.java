@@ -11,18 +11,18 @@ import cc.colorcat.util.ViewHolder;
  * xx.ch@outlook.com
  */
 public final class RvHolder extends RecyclerView.ViewHolder {
-    private final Holder mHolder;
+    private final Helper mHelper;
 
     public RvHolder(View itemView, @Nullable SimpleRvAdapter.OnItemLongClickListener listener) {
         super(itemView);
-        mHolder = new Holder(itemView);
+        mHelper = new Helper(itemView);
         if (listener != null) {
             itemView.setOnLongClickListener(new RvOnLongClickListener(listener));
         }
     }
 
-    public Holder getHolder() {
-        return mHolder;
+    public Helper getHelper() {
+        return mHelper;
     }
 
     private class RvOnLongClickListener implements View.OnLongClickListener {
@@ -39,10 +39,10 @@ public final class RvHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public static class Holder extends ViewHolder {
+    public static class Helper extends ViewHolder {
         private int mPosition;
 
-        private Holder(View root) {
+        private Helper(View root) {
             super(root);
         }
 

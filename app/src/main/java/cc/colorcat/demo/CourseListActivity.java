@@ -44,9 +44,9 @@ public class CourseListActivity extends Activity {
 
     private SwipeRefreshLayout mRootSrl;
     private RecyclerView mRecyclerView;
-    private SimpleRvAdapter<Course> mAdapter;
+    private RecyclerView.Adapter<RvHolder> mAdapter;
 
-    private Set<RvHolder.Holder> mStats = new HashSet<>();
+    private Set<RvHolder.Helper> mStats = new HashSet<>();
     private Set<RvHolder> mStats2 = new HashSet<>();
 
     private List<Course> mList = new ArrayList<>(30);
@@ -65,23 +65,28 @@ public class CourseListActivity extends Activity {
         });
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_courses);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mAdapter = createSimpleRvAdapter();
-        mRecyclerView.setAdapter(create());
+        mAdapter = createSimpleRvAdapter();
+//        mAdapter = create();
+        mRecyclerView.setAdapter(mAdapter);
         refreshData();
     }
 
+    private Set<View> mViewStats = new HashSet<>();
+
     private SimpleRvAdapter<Course> createSimpleRvAdapter() {
-        SimpleRvAdapter<Course> adapter = new SimpleRvAdapter<Course>(mList, R.layout.adapter_course_list) {
+        SimpleRvAdapter<Course> adapter = new SimpleRvAdapter<Course>(mList, R.layout.adapter_course_list2) {
             @Override
-            public void bindView(RvHolder.Holder holder, Course course) {
-                mStats.add(holder);
+            public void bindView(RvHolder.Helper helper, Course course) {
+                mStats.add(helper);
                 Log.d("CourseActivity", "holder size = " + mStats.size());
-                ImageView imageView = holder.getView(R.id.iv_icon);
+                mViewStats.add(helper.getRoot());
+                Log.i("CourseActivity", "view size = " + mViewStats.size());
+                ImageView imageView = helper.getView(R.id.iv_icon);
                 VanGogh.with(CourseListActivity.this)
                         .load(course.getPicBig())
                         .addTransformation(new CircleTransformation(4, Color.WHITE))
                         .into(imageView);
-                holder.setText(R.id.tv_name, course.getName())
+                helper.setText(R.id.tv_name, course.getName())
                         .setText(R.id.tv_description, course.getDescription());
             }
         };
@@ -110,16 +115,18 @@ public class CourseListActivity extends Activity {
         return new RecyclerView.Adapter<RvHolder>() {
             @Override
             public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_course_list, parent, false);
+                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_course_list2, parent, false);
                 return new RvHolder(itemView, null);
             }
 
             @Override
             public void onBindViewHolder(RvHolder holder, int position) {
                 mStats2.add(holder);
-                RvHolder.Holder h = holder.getHolder();
-                Course course = mList.get(position);
                 Log.d("CourseActivity", "holder size = " + mStats2.size());
+                mViewStats.add(holder.getHelper().getRoot());
+                Log.i("CourseActivity", "view size = " + mViewStats.size());
+                RvHolder.Helper h = holder.getHelper();
+                Course course = mList.get(position);
                 ImageView imageView = h.getView(R.id.iv_icon);
                 VanGogh.with(CourseListActivity.this)
                         .load(course.getPicBig())

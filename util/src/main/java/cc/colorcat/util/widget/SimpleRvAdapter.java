@@ -26,16 +26,16 @@ public abstract class SimpleRvAdapter<T> extends RecyclerView.Adapter<RvHolder> 
     public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(mLayoutResId, parent, false);
         RvHolder holder = new RvHolder(itemView, mListener);
-        holder.getHolder().setViewType(viewType);
+        holder.getHelper().setViewType(viewType);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RvHolder holder, int position) {
-        RvHolder.Holder innerHolder = holder.getHolder();
-        innerHolder.setViewType(holder.getItemViewType());
-        innerHolder.setPosition(position);
-        bindView(innerHolder, mData.get(position));
+        RvHolder.Helper helper = holder.getHelper();
+        helper.setViewType(holder.getItemViewType());
+        helper.setPosition(position);
+        bindView(helper, mData.get(position));
     }
 
     @Override
@@ -52,7 +52,11 @@ public abstract class SimpleRvAdapter<T> extends RecyclerView.Adapter<RvHolder> 
         mListener = listener;
     }
 
-    public abstract void bindView(RvHolder.Holder holder, T t);
+    public OnItemLongClickListener getOnItemLongClickListener() {
+        return mListener;
+    }
+
+    public abstract void bindView(RvHolder.Helper helper, T t);
 
     public interface OnItemLongClickListener {
 
