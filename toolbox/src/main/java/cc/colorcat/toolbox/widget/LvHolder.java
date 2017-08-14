@@ -6,23 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cc.colorcat.toolbox.ViewHolder;
-
 /**
  * Created by cxx on 2017/8/10.
  * xx.ch@outlook.com
  */
-public class LvHolder extends ViewHolder {
-    private int mPosition;
+public class LvHolder extends AdapterViewHolder {
 
     private LvHolder(int position, int viewType, @NonNull ViewGroup parent, @LayoutRes int resId) {
         super(LayoutInflater.from(parent.getContext()).inflate(resId, parent, false));
         mPosition = position;
         mViewType = viewType;
-    }
-
-    public int getPosition() {
-        return mPosition;
     }
 
     static LvHolder getHolder(int position, int viewType, View convertView, ViewGroup parent, @LayoutRes int resId) {

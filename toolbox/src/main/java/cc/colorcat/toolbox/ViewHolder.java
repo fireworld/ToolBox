@@ -33,7 +33,6 @@ import java.lang.annotation.RetentionPolicy;
 public class ViewHolder {
     private final SparseArray<View> mViews = new SparseArray<>();
     protected final View mRoot;
-    protected Integer mViewType;
 
     public static ViewHolder from(@NonNull Activity activity) {
         return new ViewHolder(activity.getWindow().getDecorView());
@@ -76,18 +75,6 @@ public class ViewHolder {
 
     public View getRoot() {
         return mRoot;
-    }
-
-    public ViewHolder setViewType(int type) {
-        mViewType = type;
-        return this;
-    }
-
-    public int getViewType() {
-        if (mViewType == null) {
-            throw new IllegalStateException("The mViewType has never been set.");
-        }
-        return mViewType;
     }
 
     @SuppressWarnings(value = "unchecked")

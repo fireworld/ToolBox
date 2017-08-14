@@ -4,8 +4,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import cc.colorcat.toolbox.ViewHolder;
-
 /**
  * Created by cxx on 2017/8/11.
  * xx.ch@outlook.com
@@ -39,19 +37,10 @@ public final class RvHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public static class Helper extends ViewHolder {
-        private int mPosition;
+    public static class Helper extends AdapterViewHolder {
 
         private Helper(View root) {
             super(root);
-        }
-
-        void setPosition(int position) {
-            mPosition = position;
-        }
-
-        public int getPosition() {
-            return mPosition;
         }
     }
 }

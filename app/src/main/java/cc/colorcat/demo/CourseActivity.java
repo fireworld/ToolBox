@@ -58,13 +58,13 @@ public class CourseActivity extends Activity {
         });
 
         ListView listView = (ListView) findViewById(R.id.lv_courses);
-//        mAdapter = createLvAdapter();
-        mAdapter = createMultiTypeLvAdapter();
+//        mAdapter = createSimpleLvAdapter();
+        mAdapter = createLvAdapter();
         listView.setAdapter(mAdapter);
         loadData();
     }
 
-    private SimpleLvAdapter<Course> createLvAdapter() {
+    private SimpleLvAdapter<Course> createSimpleLvAdapter() {
         return new SimpleLvAdapter<Course>(mList, R.layout.adapter_course2) {
             @Override
             public void bindView(LvHolder holder, Course course) {
@@ -84,7 +84,7 @@ public class CourseActivity extends Activity {
         };
     }
 
-    private LvAdapter createMultiTypeLvAdapter() {
+    private LvAdapter createLvAdapter() {
         return new LvAdapter() {
             @Override
             public int getViewTypeCount() {
@@ -107,7 +107,7 @@ public class CourseActivity extends Activity {
             }
 
             @Override
-            public int getLayoutResId(int position, int viewType) {
+            public int getLayoutResId(int viewType) {
                 switch (viewType) {
                     case 0:
                         return R.layout.adapter_course1;
@@ -119,8 +119,8 @@ public class CourseActivity extends Activity {
             }
 
             @Override
-            public void inflateData(LvHolder holder) {
-                Course course = mList.get(holder.getPosition());
+            public void inflateData(LvHolder holder, int position) {
+                Course course = mList.get(position);
                 mStats.add(holder);
                 Log.d("CourseActivity", "holder size = " + mStats.size());
                 ImageView imageView = holder.getView(R.id.iv_icon);

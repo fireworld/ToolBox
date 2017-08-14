@@ -1,9 +1,6 @@
 package cc.colorcat.toolbox.widget;
 
 import android.support.annotation.LayoutRes;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import java.util.List;
 
@@ -11,8 +8,9 @@ import java.util.List;
  * Created by cxx on 2017/8/10.
  * xx.ch@outlook.com
  */
-public abstract class SimpleLvAdapter<T> extends BaseAdapter {
+public abstract class SimpleLvAdapter<T> extends LvAdapter {
     private final List<T> mData;
+    @LayoutRes
     private final int mLayoutResId;
 
     public SimpleLvAdapter(List<T> data, @LayoutRes int resId) {
@@ -36,14 +34,6 @@ public abstract class SimpleLvAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        int viewType = getItemViewType(position);
-        LvHolder holder = LvHolder.getHolder(position, viewType, convertView, parent, mLayoutResId);
-        bindView(holder, getItem(position));
-        return holder.getRoot();
-    }
-
-    @Override
     public final int getItemViewType(int position) {
         return super.getItemViewType(position);
     }
@@ -51,6 +41,17 @@ public abstract class SimpleLvAdapter<T> extends BaseAdapter {
     @Override
     public final int getViewTypeCount() {
         return super.getViewTypeCount();
+    }
+
+    @Override
+    @LayoutRes
+    public int getLayoutResId(int viewType) {
+        return mLayoutResId;
+    }
+
+    @Override
+    public void inflateData(LvHolder holder, int position) {
+        bindView(holder, getItem(position));
     }
 
     public abstract void bindView(LvHolder holder, T t);

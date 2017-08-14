@@ -14,9 +14,9 @@ public abstract class LvAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int viewType = getItemViewType(position);
-        int layoutResId = getLayoutResId(position, viewType);
+        int layoutResId = getLayoutResId(viewType);
         LvHolder holder = LvHolder.getHolder(position, viewType, convertView, parent, layoutResId);
-        inflateData(holder);
+        inflateData(holder, position);
         return holder.getRoot();
     }
 
@@ -25,14 +25,8 @@ public abstract class LvAdapter extends BaseAdapter {
         return position;
     }
 
-    @Override
-    public abstract int getViewTypeCount();
-
-    @Override
-    public abstract int getItemViewType(int position);
-
     @LayoutRes
-    public abstract int getLayoutResId(int position, int viewType);
+    public abstract int getLayoutResId(int viewType);
 
-    public abstract void inflateData(LvHolder holder);
+    public abstract void inflateData(LvHolder holder, int position);
 }
