@@ -12,11 +12,11 @@ import android.widget.BaseAdapter;
 public abstract class LvAdapter extends BaseAdapter {
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         int viewType = getItemViewType(position);
         int layoutResId = getLayoutResId(viewType);
         LvHolder holder = LvHolder.getHolder(position, viewType, convertView, parent, layoutResId);
-        inflateData(holder, position);
+        bindView(holder, position);
         return holder.getRoot();
     }
 
@@ -28,5 +28,5 @@ public abstract class LvAdapter extends BaseAdapter {
     @LayoutRes
     public abstract int getLayoutResId(int viewType);
 
-    public abstract void inflateData(LvHolder holder, int position);
+    public abstract void bindView(LvHolder holder, int position);
 }

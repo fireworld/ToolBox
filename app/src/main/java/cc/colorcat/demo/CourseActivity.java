@@ -69,7 +69,7 @@ public class CourseActivity extends Activity {
             @Override
             public void bindView(LvHolder holder, Course course) {
                 mStats.add(holder);
-                Log.d("CourseActivity", "holder size = " + mStats.size());
+                Log.d("CourseActivity", "simple holder size = " + mStats.size());
                 ImageView imageView = holder.getView(R.id.iv_icon);
                 VanGogh.with(CourseActivity.this)
                         .load(course.getPicBig())
@@ -119,10 +119,10 @@ public class CourseActivity extends Activity {
             }
 
             @Override
-            public void inflateData(LvHolder holder, int position) {
+            public void bindView(LvHolder holder, int position) {
                 Course course = mList.get(position);
                 mStats.add(holder);
-                Log.d("CourseActivity", "holder size = " + mStats.size());
+                Log.d("CourseActivity", "multi type holder size = " + mStats.size());
                 ImageView imageView = holder.getView(R.id.iv_icon);
                 VanGogh.with(CourseActivity.this)
                         .load(course.getPicBig())

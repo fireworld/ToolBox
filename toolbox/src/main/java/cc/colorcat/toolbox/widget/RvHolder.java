@@ -11,7 +11,7 @@ import android.view.View;
 public final class RvHolder extends RecyclerView.ViewHolder {
     private final Helper mHelper;
 
-    public RvHolder(View itemView, @Nullable SimpleRvAdapter.OnItemLongClickListener listener) {
+    public RvHolder(View itemView, @Nullable RvAdapter.OnItemLongClickListener listener) {
         super(itemView);
         mHelper = new Helper(itemView);
         if (listener != null) {
@@ -24,9 +24,9 @@ public final class RvHolder extends RecyclerView.ViewHolder {
     }
 
     private class RvOnLongClickListener implements View.OnLongClickListener {
-        private SimpleRvAdapter.OnItemLongClickListener mListener;
+        private RvAdapter.OnItemLongClickListener mListener;
 
-        RvOnLongClickListener(SimpleRvAdapter.OnItemLongClickListener listener) {
+        RvOnLongClickListener(RvAdapter.OnItemLongClickListener listener) {
             mListener = listener;
         }
 

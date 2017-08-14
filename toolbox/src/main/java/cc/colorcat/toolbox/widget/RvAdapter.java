@@ -11,10 +11,10 @@ import android.view.ViewGroup;
  * xx.ch@outlook.com
  */
 public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
-    private SimpleRvAdapter.OnItemLongClickListener mListener;
+    private OnItemLongClickListener mListener;
 
     @Override
-    public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutResId(viewType), parent, false);
         RvHolder holder = new RvHolder(itemView, mListener);
         holder.getHelper().setViewType(viewType);
@@ -22,22 +22,27 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RvHolder holder, int position) {
+    public final void onBindViewHolder(RvHolder holder, int position) {
         RvHolder.Helper helper = holder.getHelper();
         helper.setViewType(holder.getItemViewType());
         helper.setPosition(position);
-        bindView(helper, position);
+        bindView(holder, position);
     }
 
-    @Override
-    public int getItemCount() {
-        return 0;
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        mListener = listener;
+    }
+
+    public OnItemLongClickListener getOnItemLongClickListener() {
+        return mListener;
     }
 
     @LayoutRes
     public abstract int getLayoutResId(int viewType);
 
-    public abstract void bindView(RvHolder.Helper helper, int position);
+
+    public abstract void bindView(RvHolder holder, int position);
+
 
     public interface OnItemLongClickListener {
 

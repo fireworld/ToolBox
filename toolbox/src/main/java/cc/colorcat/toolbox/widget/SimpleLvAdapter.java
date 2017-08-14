@@ -45,12 +45,12 @@ public abstract class SimpleLvAdapter<T> extends LvAdapter {
 
     @Override
     @LayoutRes
-    public int getLayoutResId(int viewType) {
+    public final int getLayoutResId(int viewType) {
         return mLayoutResId;
     }
 
     @Override
-    public void inflateData(LvHolder holder, int position) {
+    public void bindView(LvHolder holder, int position) {
         bindView(holder, getItem(position));
     }
 
