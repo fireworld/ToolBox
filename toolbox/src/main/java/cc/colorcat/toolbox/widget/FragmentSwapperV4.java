@@ -18,9 +18,9 @@ import cc.colorcat.toolbox.R;
 public abstract class FragmentSwapperV4 {
     private FragmentManager mManager;
     @AnimRes
-    private int[] mForwardAnim = {R.anim.right_in, R.anim.left_out};
+    private int[] mForwardAnim = {R.anim.end_in, R.anim.start_out};
     @AnimRes
-    private int[] mBackAnim = {R.anim.left_in, R.anim.right_out};
+    private int[] mBackAnim = {R.anim.start_in, R.anim.end_out};
     @IdRes
     private int mViewId;
     private int mCurrent = -1;
