@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GifView">
+        <attr name="gif" format="reference"/>
+        <attr name="paused" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="InterceptSwipeRefreshLayout">
+        <attr name="refreshEnabled" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="TranslateView">
+        <attr name="src" format="reference"/>
+        <attr name="speed" format="dimension"/>
+        <attr name="translating" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScrollViewPager">
+        <attr name="enable_scroll" format="boolean"/>
+        <attr name="enable_intercept" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="GeminiButton">
+        <attr name="min_number" format="integer"/>
+        <attr name="max_number" format="integer"/>
+        <attr name="default_number" format="integer"/>
+        <attr name="interval" format="integer"/>
+        <attr name="text_size" format="dimension"/>
+    </declare-styleable>
+</resources>

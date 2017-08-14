@@ -1,10 +1,17 @@
 package cc.colorcat.toolbox;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by cxx on 2017/8/9.
  * xx.ch@outlook.com
  */
 public final class Op {
+
+    public static <T> List<T> nullEmpty(List<T> list) {
+        return list != null ? list : Collections.<T>emptyList();
+    }
 
     public static <T> T nullElse(T value, T other) {
         return value != null ? value : other;
