@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.squareup.picasso.Picasso;
 
-import cc.colorcat.util.L;
+import cc.colorcat.toolbox.L;
 import cc.colorcat.vangogh.VanGogh;
 
 /**

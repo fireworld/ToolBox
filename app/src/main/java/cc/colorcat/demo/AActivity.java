@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import cc.colorcat.util.communication.Broker;
-import cc.colorcat.util.communication.Subject;
-import cc.colorcat.util.communication.Subscriber;
+import cc.colorcat.toolbox.communication.Broker;
+import cc.colorcat.toolbox.communication.Subject;
+import cc.colorcat.toolbox.communication.Subscriber;
 
 /**
  * Created by cxx on 2017/8/10.
