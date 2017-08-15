@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_qq"
+        style="@style/BtnPopupWindow"
+        android:drawableTop="@mipmap/ic_qq"
+        android:text="@string/qq"/>
+
+    <Button
+        android:id="@+id/btn_we_chat"
+        style="@style/BtnPopupWindow"
+        android:drawableTop="@mipmap/ic_wechat"
+        android:text="@string/we_chat"/>
+
+    <Button
+        android:id="@+id/btn_circle_of_friends"
+        style="@style/BtnPopupWindow"
+        android:drawableTop="@mipmap/ic_circle_of_friends"
+        android:text="@string/circle_of_friends"/>
+
+    <Button
+        android:id="@+id/btn_wei_bo"
+        style="@style/BtnPopupWindow"
+        android:drawableTop="@mipmap/ic_weibo"
+        android:text="@string/wei_bo"/>
+
+</LinearLayout>

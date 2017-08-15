@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">util</string>
+    <string name="app_name">ToolBox</string>
+
+    <string name="qq">QQ</string>
+    <string name="we_chat">微信</string>
+    <string name="wei_bo">微博</string>
+    <string name="circle_of_friends">朋友圈</string>
 </resources>

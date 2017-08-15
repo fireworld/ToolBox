@@ -1,14 +1,38 @@
 package cc.colorcat.toolbox;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by cxx on 17-8-14.
  * xx.ch@outlook.com
  */
 public class AndroidUtils {
+
+    public static Drawable buildSelected(Drawable normal, Drawable selected) {
+        StateListDrawable drawable = new StateListDrawable();
+        drawable.addState(new int[]{android.R.attr.state_selected}, selected);
+        drawable.addState(new int[]{-android.R.attr.state_selected}, normal);
+        return drawable;
+    }
+
+    public static ColorStateList buildSelected(@ColorInt int normal, @ColorInt int selected) {
+        int[][] states = {
+                {android.R.attr.state_selected},
+                {-android.R.attr.state_selected}
+        };
+        int[] colors = {selected, normal};
+        return new ColorStateList(states, colors);
+    }
 
     public static void setChildViewEnabled(ViewGroup group, boolean enabled) {
         for (int i = 0, count = group.getChildCount(); i < count; ++i) {
@@ -40,6 +64,28 @@ public class AndroidUtils {
             }
         }
         return false;
+    }
+
+    private static void fixInputManagerLeak(Context ctx) {
+        InputMethodManager manager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (manager == null) return;
+        Class clz = manager.getClass();
+        String[] fieldNames = {"mCurRootView", "mServedView", "mNextServedView"};
+        for (String name : fieldNames) {
+            try {
+                Field field = clz.getDeclaredField(name);
+                field.setAccessible(true);
+                Object viewObject = field.get(manager);
+                if (viewObject instanceof View) {
+                    View view = (View) viewObject;
+                    if (view.getContext() == ctx) {
+                        field.set(manager, null);
+                    }
+                }
+            } catch (Exception ignore) {
+                L.e(ignore);
+            }
+        }
     }
 
     private AndroidUtils() {

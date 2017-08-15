@@ -42,10 +42,6 @@ public final class Op {
         return value != null && value.length() != 0 ? value : other;
     }
 
-    public static boolean isEmpty(CharSequence txt) {
-        return txt == null || txt.length() == 0;
-    }
-
     private Op() {
         throw new AssertionError("no instance");
     }
