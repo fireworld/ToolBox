@@ -37,4 +37,8 @@ public class Utils {
     public static boolean isEmpty(CharSequence text) {
         return text == null || text.length() == 0;
     }
+
+    private Utils() {
+        throw new AssertionError("no instance");
+    }
 }
