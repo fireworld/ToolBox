@@ -33,4 +33,8 @@ public class Utils {
     public static boolean isHttpUrl(String url) {
         return url != null && url.toLowerCase().matches("^(http)(s)?://(\\S)+");
     }
+
+    public static boolean isEmpty(CharSequence text) {
+        return text == null || text.length() == 0;
+    }
 }
