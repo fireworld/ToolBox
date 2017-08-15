@@ -59,7 +59,9 @@ public class TranslateView extends View {
                 Bitmap temp = mBitmap;
                 mBitmap = Bitmap.createScaledBitmap(temp, right - left, bottom - top, true);
                 mBitmapW = mBitmap.getWidth();
-                temp.recycle();
+                if (mBitmap != temp) {
+                    temp.recycle();
+                }
                 removeOnLayoutChangeListener(mListener);
                 mScaled = true;
             }
