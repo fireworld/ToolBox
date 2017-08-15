@@ -28,7 +28,7 @@ public class Result<T> {
         if (msg == null) {
             throw new IllegalArgumentException("msg == null");
         }
-        if (msg.toLowerCase().equals(MSG_SUCCESS)) {
+        if (msg.equalsIgnoreCase(MSG_SUCCESS)) {
             throw new IllegalArgumentException("failure, but msg is " + MSG_SUCCESS);
         }
         return new Result<>(CODE_FRIENDLY, msg, null);
@@ -42,7 +42,7 @@ public class Result<T> {
         if (msg == null) {
             throw new IllegalArgumentException("msg == null");
         }
-        if (msg.toLowerCase().equals(MSG_SUCCESS)) {
+        if (msg.equalsIgnoreCase(MSG_SUCCESS)) {
             throw new IllegalArgumentException("failure, but msg is " + MSG_SUCCESS);
         }
         return new Result<>(CODE_SYSTEM_ERROR, msg, null);
