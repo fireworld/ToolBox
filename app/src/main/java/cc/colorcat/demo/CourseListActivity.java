@@ -63,9 +63,9 @@ public class CourseListActivity extends Activity {
         });
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_courses);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mAdapter = createSimpleRvAdapter();
+        mAdapter = createSimpleRvAdapter();
 //        mAdapter = createRecyclerViewAdapter();
-        mAdapter = createRvAdapter();
+//        mAdapter = createRvAdapter();
         mRecyclerView.setAdapter(mAdapter);
         refreshData();
     }
@@ -112,6 +112,12 @@ public class CourseListActivity extends Activity {
                         }).show();
             }
         });
+        adapter.setOnItemClickListener(new RvAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                L.e("CourseActivity", "position = " + position);
+            }
+        });
         return adapter;
     }
 
@@ -120,7 +126,7 @@ public class CourseListActivity extends Activity {
             @Override
             public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_course_list2, parent, false);
-                return new RvHolder(itemView, null);
+                return new RvHolder(itemView);
             }
 
             @Override

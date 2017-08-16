@@ -11,12 +11,13 @@ import android.view.ViewGroup;
  * xx.ch@outlook.com
  */
 public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
-    private OnItemLongClickListener mListener;
+    private OnItemLongClickListener mLongClick;
+    private OnItemClickListener mClick;
 
     @Override
     public final RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutResId(viewType), parent, false);
-        RvHolder holder = new RvHolder(itemView, mListener);
+        RvHolder holder = new RvHolder(itemView, mLongClick, mClick);
         holder.getHelper().setViewType(viewType);
         return holder;
     }
@@ -29,12 +30,20 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
         bindView(holder, position);
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mClick = listener;
+    }
+
+    public OnItemClickListener getOnItemClickListener() {
+        return mClick;
+    }
+
     public void setOnItemLongClickListener(OnItemLongClickListener listener) {
-        mListener = listener;
+        mLongClick = listener;
     }
 
     public OnItemLongClickListener getOnItemLongClickListener() {
-        return mListener;
+        return mLongClick;
     }
 
     @LayoutRes
@@ -47,5 +56,10 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     public interface OnItemLongClickListener {
 
         void onItemLongClick(View view, int position);
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(View view, int position);
     }
 }

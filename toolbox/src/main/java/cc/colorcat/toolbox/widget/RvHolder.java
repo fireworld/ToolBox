@@ -11,11 +11,19 @@ import android.view.View;
 public final class RvHolder extends RecyclerView.ViewHolder {
     private final Helper mHelper;
 
-    public RvHolder(View itemView, @Nullable RvAdapter.OnItemLongClickListener listener) {
+    public RvHolder(View itemView) {
         super(itemView);
         mHelper = new Helper(itemView);
-        if (listener != null) {
-            itemView.setOnLongClickListener(new RvOnLongClickListener(listener));
+    }
+
+    public RvHolder(View itemView, @Nullable RvAdapter.OnItemLongClickListener longClickListener, @Nullable RvAdapter.OnItemClickListener clickListener) {
+        super(itemView);
+        mHelper = new Helper(itemView);
+        if (longClickListener != null) {
+            itemView.setOnLongClickListener(new RvOnLongClickListener(longClickListener));
+        }
+        if (clickListener != null) {
+            itemView.setOnClickListener(new RvOnClickListener(clickListener));
         }
     }
 
@@ -24,18 +32,33 @@ public final class RvHolder extends RecyclerView.ViewHolder {
     }
 
     private class RvOnLongClickListener implements View.OnLongClickListener {
-        private RvAdapter.OnItemLongClickListener mListener;
+        private RvAdapter.OnItemLongClickListener mLongClickListener;
 
-        RvOnLongClickListener(RvAdapter.OnItemLongClickListener listener) {
-            mListener = listener;
+        RvOnLongClickListener(RvAdapter.OnItemLongClickListener longClickListener) {
+            mLongClickListener = longClickListener;
         }
 
         @Override
         public boolean onLongClick(View v) {
-            mListener.onItemLongClick(v, getLayoutPosition());
+            mLongClickListener.onItemLongClick(v, getLayoutPosition());
             return false;
         }
     }
+
+
+    private class RvOnClickListener implements View.OnClickListener {
+        private RvAdapter.OnItemClickListener mClickListener;
+
+        RvOnClickListener(RvAdapter.OnItemClickListener clickListener) {
+            mClickListener = clickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mClickListener.onItemClick(v, getLayoutPosition());
+        }
+    }
+
 
     public static class Helper extends AdapterViewHolder {
 

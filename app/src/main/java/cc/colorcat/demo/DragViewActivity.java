@@ -109,7 +109,7 @@ public class DragViewActivity extends Activity {
 //                Course from = mList.remove(fromPosition);
 //                mList.add(toPosition, from);
 
-                Collections.swap(mList,fromPosition, toPosition);
+                Collections.swap(mList, fromPosition, toPosition);
                 mAdapter.notifyItemMoved(fromPosition, toPosition);
                 return true;
             }
@@ -192,7 +192,7 @@ public class DragViewActivity extends Activity {
             @Override
             public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_course_list2, parent, false);
-                return new RvHolder(itemView, null);
+                return new RvHolder(itemView);
             }
 
             @Override
