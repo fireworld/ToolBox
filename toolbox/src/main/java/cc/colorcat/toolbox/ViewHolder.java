@@ -211,7 +211,7 @@ public class ViewHolder {
         return this;
     }
 
-    public ViewHolder serError(@IdRes int viewResId, @StringRes int resId, Drawable icon) {
+    public ViewHolder setError(@IdRes int viewResId, @StringRes int resId, Drawable icon) {
         TextView view = getView(viewResId);
         CharSequence tip = view.getResources().getText(resId);
         view.setError(tip, icon);
