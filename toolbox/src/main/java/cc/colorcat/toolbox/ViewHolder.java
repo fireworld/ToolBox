@@ -198,9 +198,23 @@ public class ViewHolder {
         return this;
     }
 
+    public ViewHolder setError(@IdRes int viewResId, @StringRes int resId) {
+        TextView view = getView(viewResId);
+        CharSequence tip = view.getResources().getText(resId);
+        view.setError(tip);
+        return this;
+    }
+
     public ViewHolder setError(@IdRes int viewResId, CharSequence error, Drawable icon) {
         TextView view = getView(viewResId);
         view.setError(error, icon);
+        return this;
+    }
+
+    public ViewHolder serError(@IdRes int viewResId, @StringRes int resId, Drawable icon) {
+        TextView view = getView(viewResId);
+        CharSequence tip = view.getResources().getText(resId);
+        view.setError(tip, icon);
         return this;
     }
 
