@@ -190,7 +190,7 @@ public class ViewHolder {
     public CharSequence getText(@IdRes int viewResId) {
         TextView view = getView(viewResId);
         return view.getText();
-    }
+        }
 
     public String getString(@IdRes int viewResId) {
         return getText(viewResId).toString();
