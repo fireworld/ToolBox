@@ -192,6 +192,14 @@ public class ViewHolder {
         return view.getText();
     }
 
+    public String getString(@IdRes int viewResId) {
+        return getText(viewResId).toString();
+    }
+
+    public String getTrimmedString(@IdRes int viewResId) {
+        return getText(viewResId).toString().trim();
+    }
+
     public ViewHolder setError(@IdRes int viewResId, CharSequence error) {
         TextView view = getView(viewResId);
         view.setError(error);
