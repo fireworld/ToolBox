@@ -134,6 +134,18 @@ public class ViewHolder {
         return getView(viewResId).isEnabled();
     }
 
+    public ViewHolder setPadding(@IdRes int viewResId, int padding) {
+        View view = getView(viewResId);
+        view.setPadding(padding, padding, padding, padding);
+        return this;
+    }
+
+    public ViewHolder setPadding(@IdRes int viewResId, int left, int top, int right, int bottom) {
+        View view = getView(viewResId);
+        view.setPadding(left, top, right, bottom);
+        return this;
+    }
+
     public ViewHolder setBackground(@IdRes int viewResId, Drawable background) {
         View view = getView(viewResId);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -190,7 +202,7 @@ public class ViewHolder {
     public CharSequence getText(@IdRes int viewResId) {
         TextView view = getView(viewResId);
         return view.getText();
-        }
+    }
 
     public String getString(@IdRes int viewResId) {
         return getText(viewResId).toString();
