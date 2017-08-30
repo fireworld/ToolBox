@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="128dp"
+        android:layout_height="48dp"
+        android:drawableStart="@drawable/ic_cloud_download_black_24dp"
+        android:drawableEnd="@drawable/ic_error_black_24dp"
+        android:drawableTop="@color/colorPrimary"
+        android:text="sfffffff"
+        android:textColor="#FFFFFF"/>
+
+    <cc.colorcat.toolbox.widget.TernaryTextView
+        android:background="#AFAFAF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:text="this 中国 北京"
+        app:drawableCenter="@color/colorAccent"
+        app:drawableEnd="@color/colorPrimary"
+        app:drawableStart="@color/cardview_shadow_start_color"/>
+
+</LinearLayout>

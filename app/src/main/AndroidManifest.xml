@@ -25,6 +25,7 @@
         <activity android:name=".CourseActivity"/>
         <activity android:name=".CourseListActivity"/>
         <activity android:name=".DragViewActivity"/>
+        <activity android:name=".TestActivity"/>
     </application>
 
 </manifest>

@@ -27,7 +27,7 @@ import cc.colorcat.toolbox.R;
  * xx.ch@outlook.com
  */
 public final class GeminiButton extends LinearLayout {
-    private float mFontSize = 16;
+    private float mFontSize = 16F;
     private int mMin = Integer.MIN_VALUE;
     private int mMax = Integer.MAX_VALUE;
     private int mInterval = 1;
