@@ -17,27 +17,27 @@
         android:text="sfffffff"
         android:textColor="#FFFFFF"/>
 
-    <cc.colorcat.toolbox.widget.TernaryTextView
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        android:background="#FF0000"
-        android:padding="8dp"
-        app:drawableCenter="@color/lightGrey"
-        app:drawableEnd="@drawable/bg_tag_end"
-        app:drawableStart="@drawable/bg_tag_start"
-        app:text="this 中国 北京"/>
-
-    <cc.colorcat.toolbox.widget.TernaryTextView
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        android:background="#FF0000"
-        android:padding="8dp"
-        app:drawableCenter="@color/lightGrey"
-        app:drawableEnd="@drawable/bg_tag_end"
-        app:drawableStart="@drawable/bg_tag_start"
-        app:text="北京"/>
+    <!--<cc.colorcat.toolbox.widget.TernaryTextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="24dp"-->
+    <!--android:layout_margin="24dp"-->
+    <!--android:background="#FF0000"-->
+    <!--android:padding="8dp"-->
+    <!--app:drawableCenter="@color/lightGrey"-->
+    <!--app:drawableEnd="@drawable/bg_tag_end"-->
+    <!--app:drawableStart="@drawable/bg_tag_start"-->
+    <!--app:text="this 中国 北京"/>-->
+    <!---->
+    <!--<cc.colorcat.toolbox.widget.TernaryTextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="24dp"-->
+    <!--android:layout_margin="24dp"-->
+    <!--android:background="#FF0000"-->
+    <!--android:padding="8dp"-->
+    <!--app:drawableCenter="@color/lightGrey"-->
+    <!--app:drawableEnd="@drawable/bg_tag_end"-->
+    <!--app:drawableStart="@drawable/bg_tag_start"-->
+    <!--app:text="北京"/>-->
 
     <cc.colorcat.toolbox.widget.TernaryTextView
         android:id="@+id/ttv"
@@ -48,6 +48,8 @@
         app:drawableCenter="@color/lightGrey"
         app:drawableEnd="@drawable/bg_tag_end"
         app:drawableStart="@drawable/bg_tag_start"
-        app:text="中国"/>
+        app:text="中国"
+        app:textColor="#0000FF"
+        app:textSize="22sp"/>
 
 </LinearLayout>

@@ -25,10 +25,10 @@ public class TestActivity extends Activity {
         setContentView(R.layout.layout_test);
 
         TextView textView = (TextView) findViewById(R.id.text_view);
-        textView.setTextSize(12);
-        textView.getTextSize();
+//        textView.setTextSize(12);
+//        textView.getTextSize();
 //        textView.setTextColor();
-        textView.setText("test");
+//        textView.setText("test");
 
         final TernaryTextView ttv = (TernaryTextView) findViewById(R.id.ttv);
 //        ttv.setText("01234");
