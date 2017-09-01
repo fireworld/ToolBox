@@ -85,6 +85,18 @@ public final class L {
         Log.println(level, TAG, msg);
     }
 
+    private static final int MAX_LENGTH = 1024;
+
+    private static void realPrintln(String tag, String msg, @Level int level) {
+        for (int start = 0, end = start + MAX_LENGTH, size = msg.length(); start < size; start = end, end = start + MAX_LENGTH) {
+            if (end > size) {
+                Log.println(level, tag, msg.substring(start, size));
+            } else {
+                Log.println(level, tag, msg.substring(start, end));
+            }
+        }
+    }
+
     private L() {
         throw new AssertionError("no instance.");
     }
