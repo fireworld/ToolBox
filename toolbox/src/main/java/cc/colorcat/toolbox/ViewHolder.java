@@ -77,6 +77,21 @@ public class ViewHolder {
         return mRoot;
     }
 
+    @SuppressWarnings("unchecked")
+    public <V extends View> V optView(@IdRes int viewResId) {
+        View view = mViews.get(viewResId);
+        if (view == null) {
+            view = mRoot.findViewById(viewResId);
+            if (view != null) {
+                mViews.put(viewResId, view);
+            }
+        }
+        return (V) view;
+    }
+
+    /**
+     * @throws NullPointerException if can not find the view by viewResId.
+     */
     @SuppressWarnings(value = "unchecked")
     public <V extends View> V getView(@IdRes int viewResId) {
         View view = mViews.get(viewResId);
