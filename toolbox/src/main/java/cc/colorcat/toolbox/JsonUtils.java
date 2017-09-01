@@ -3,22 +3,9 @@ package cc.colorcat.toolbox;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by cxx on 17-6-27.
@@ -33,6 +20,8 @@ public class JsonUtils {
                 .serializeNulls()
                 .registerTypeAdapterFactory(new NullStringAdapterFactory())
                 .registerTypeAdapterFactory(new NullDateAdapterFactory(DATE_FORMAT))
+                .registerTypeAdapterFactory(new NullArrayTypeAdapterFactory())
+                .registerTypeAdapterFactory(new NullCollectionTypeAdapterFactory())
                 .create();
     }
 
@@ -62,94 +51,5 @@ public class JsonUtils {
 
     private JsonUtils() {
         throw new AssertionError("no instance");
-    }
-
-
-    @SuppressWarnings("unchecked")
-    private static class NullStringAdapterFactory implements TypeAdapterFactory {
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            Class<? super T> rawType = type.getRawType();
-            if (!String.class.isAssignableFrom(rawType)) {
-                return null;
-            }
-            return (TypeAdapter<T>) new NullStringAdapter();
-        }
-    }
-
-    private static class NullStringAdapter extends TypeAdapter<String> {
-
-        @Override
-        public synchronized void write(JsonWriter out, String value) throws IOException {
-            if (value == null) {
-                out.nullValue();
-                return;
-            }
-            out.value(value);
-        }
-
-        @Override
-        public synchronized String read(JsonReader in) throws IOException {
-            if (in.peek() == JsonToken.NULL) {
-                in.nextNull();
-                return "";
-            }
-            return in.nextString();
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static class NullDateAdapterFactory implements TypeAdapterFactory {
-        private final String format;
-
-        NullDateAdapterFactory(String format) {
-            this.format = format;
-        }
-
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            Class<? super T> rawType = type.getRawType();
-            if (!Date.class.isAssignableFrom(rawType)) {
-                return null;
-            }
-            return (TypeAdapter<T>) new NullDateAdapter(format);
-        }
-    }
-
-    private static class NullDateAdapter extends TypeAdapter<Date> {
-        private final DateFormat dateFormatter;
-
-        NullDateAdapter(String format) {
-            dateFormatter = new SimpleDateFormat(format, Locale.getDefault());
-        }
-
-        @Override
-        public void write(JsonWriter out, Date value) throws IOException {
-            synchronized (dateFormatter) {
-                if (value == null) {
-                    out.nullValue();
-                } else {
-                    String dateString = dateFormatter.format(value);
-                    out.value(dateString);
-                }
-            }
-        }
-
-        @Override
-        public synchronized Date read(JsonReader in) throws IOException {
-            JsonToken token = in.peek();
-            if (token == JsonToken.NULL) {
-                in.nextNull();
-                return new Date();
-            }
-            if (token != JsonToken.STRING) {
-                throw new JsonParseException("The date should be a string value");
-            }
-            try {
-                return dateFormatter.parse(in.nextString());
-            } catch (ParseException e) {
-                throw new JsonParseException(e);
-            }
-        }
     }
 }
