@@ -26,6 +26,7 @@
         <activity android:name=".CourseListActivity"/>
         <activity android:name=".DragViewActivity"/>
         <activity android:name=".TestActivity"/>
+        <activity android:name=".FavoritesActivity"/>
     </application>
 
 </manifest>

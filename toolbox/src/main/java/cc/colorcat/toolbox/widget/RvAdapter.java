@@ -55,11 +55,11 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
 
     public interface OnItemLongClickListener {
 
-        void onItemLongClick(View view, int position);
+        void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, int position);
     }
 
     public interface OnItemClickListener {
 
-        void onItemClick(View view, int position);
+        void onItemClick(RecyclerView.ViewHolder holder, View itemView, int position);
     }
 }

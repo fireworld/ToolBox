@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtn3;
     private Button mBtn4;
     private Button mBtn5;
+    private Button mBtn6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtn3 = fillButton("test SimpleRvAdapter");
         mBtn4 = fillButton("test DragViewActivity");
         mBtn5 = fillButton("test ternary text view");
+        mBtn6 = fillButton("test FavoritesActivity");
         setContentView(mRoot);
     }
 
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             navigateTo(DragViewActivity.class);
         } else if (v == mBtn5) {
             navigateTo(TestActivity.class);
+        } else if (v == mBtn6) {
+            navigateTo(FavoritesActivity.class);
         }
     }
 

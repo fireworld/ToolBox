@@ -40,7 +40,7 @@ public final class RvHolder extends RecyclerView.ViewHolder {
 
         @Override
         public boolean onLongClick(View v) {
-            mLongClickListener.onItemLongClick(v, getLayoutPosition());
+            mLongClickListener.onItemLongClick(RvHolder.this, v, getLayoutPosition());
             return false;
         }
     }
@@ -55,7 +55,7 @@ public final class RvHolder extends RecyclerView.ViewHolder {
 
         @Override
         public void onClick(View v) {
-            mClickListener.onItemClick(v, getLayoutPosition());
+            mClickListener.onItemClick(RvHolder.this, v, getLayoutPosition());
         }
     }
 

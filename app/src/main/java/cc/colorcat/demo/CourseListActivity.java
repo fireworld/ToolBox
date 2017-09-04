@@ -96,7 +96,7 @@ public class CourseListActivity extends Activity {
         };
         adapter.setOnItemLongClickListener(new SimpleRvAdapter.OnItemLongClickListener() {
             @Override
-            public void onItemLongClick(View view, final int position) {
+            public void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, final int position) {
                 new AlertDialog.Builder(CourseListActivity.this).setTitle("Tip").setMessage("delete?").setCancelable(false)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
@@ -114,7 +114,7 @@ public class CourseListActivity extends Activity {
         });
         adapter.setOnItemClickListener(new RvAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(RecyclerView.ViewHolder holder, View itemView, int position) {
                 L.e("CourseActivity", "position = " + position);
             }
         });
@@ -203,7 +203,7 @@ public class CourseListActivity extends Activity {
 
         adapter.setOnItemLongClickListener(new SimpleRvAdapter.OnItemLongClickListener() {
             @Override
-            public void onItemLongClick(View view, final int position) {
+            public void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, final int position) {
                 new AlertDialog.Builder(CourseListActivity.this).setTitle("Tip").setMessage("delete?").setCancelable(false)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
