@@ -73,16 +73,16 @@ public final class L {
 
     public static void l(String tag, String msg, @Level int level) {
         if (level >= L.level) {
-            Log.println(level, tag, msg);
+            realPrintln(tag, msg, level);
         }
     }
 
     public static void ll(String tag, String msg, @Level int level) {
-        Log.println(level, tag, msg);
+        realPrintln(tag, msg, level);
     }
 
     public static void ll(String msg, @Level int level) {
-        Log.println(level, TAG, msg);
+        realPrintln(TAG, msg, level);
     }
 
     private static final int MAX_LENGTH = 1024;
