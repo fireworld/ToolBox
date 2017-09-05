@@ -74,7 +74,7 @@ public class DragViewActivity extends Activity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e){
                 return false;
             }
 
