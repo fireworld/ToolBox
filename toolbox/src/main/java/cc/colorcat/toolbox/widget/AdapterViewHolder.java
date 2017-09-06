@@ -16,16 +16,18 @@ public class AdapterViewHolder extends ViewHolder {
         super(root);
     }
 
-    public void setViewType(int viewType) {
+    public AdapterViewHolder setViewType(int viewType) {
         mViewType = viewType;
+        return this;
     }
 
     public int getViewType() {
         return mViewType;
     }
 
-    public void setPosition(int position) {
+    public AdapterViewHolder setPosition(int position) {
         mPosition = position;
+        return this;
     }
 
     public int getPosition() {
