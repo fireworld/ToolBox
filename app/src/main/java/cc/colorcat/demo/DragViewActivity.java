@@ -113,20 +113,17 @@ public class DragViewActivity extends Activity {
                 int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
                 int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
                 L.e(TAG, "from = " + fromPosition + ", to = " + toPosition);
-//                if (fromPosition < toPosition) {
-//                    for (int i = fromPosition; i < toPosition; i++) {
-//                        Collections.swap(mList, i, i + 1);
-//                    }
-//                } else {
-//                    for (int i = fromPosition; i > toPosition; i--) {
-//                        Collections.swap(mList, i, i - 1);
-//                    }
-//                }
+                if (fromPosition < toPosition) {
+                    for (int i = fromPosition; i < toPosition; i++) {
+                        Collections.swap(mList, i, i + 1);
+                    }
+                } else {
+                    for (int i = fromPosition; i > toPosition; i--) {
+                        Collections.swap(mList, i, i - 1);
+                    }
+                }
 
-//                Course from = mList.remove(fromPosition);
-//                mList.add(toPosition, from);
-
-                Collections.swap(mList, fromPosition, toPosition);
+//                Collections.swap(mList, fromPosition, toPosition);
                 mAdapter.notifyItemMoved(fromPosition, toPosition);
                 return true;
             }
