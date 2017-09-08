@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
+import android.widget.Filterable;
+import android.widget.ListAdapter;
 
 import java.lang.reflect.Field;
 
@@ -24,6 +27,32 @@ import java.lang.reflect.Field;
  * xx.ch@outlook.com
  */
 public class AndroidUtils {
+
+    public static <T extends ListAdapter & Filterable> void configSearchView(ViewGroup searchView, Boolean focusable, View.OnClickListener listener, T adapter) {
+        for (int i = 0, cnt = searchView.getChildCount(); i < cnt; i++) {
+            View view = searchView.getChildAt(i);
+            if (focusable != null) {
+                view.setFocusable(focusable);
+            }
+            if (listener != null) {
+                view.setOnClickListener(listener);
+            }
+            if (view instanceof AutoCompleteTextView) {
+                L.d("TestActivity", "found AutoCompleteTextView");
+                AutoCompleteTextView complete = (AutoCompleteTextView) view;
+                complete.setPadding(0, 0, 0, 0);
+                complete.setHintTextColor(Color.WHITE);
+                complete.setTextColor(Color.WHITE);
+                complete.setTextSize(16);
+                complete.setHint(android.R.string.search_go);
+                if (adapter != null) {
+                    complete.setAdapter(adapter);
+                }
+            } else if (view instanceof ViewGroup) {
+                configSearchView((ViewGroup) view, focusable, listener, adapter);
+            }
+        }
+    }
 
     public static boolean hasAvailableNetwork(Context ctx) {
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
