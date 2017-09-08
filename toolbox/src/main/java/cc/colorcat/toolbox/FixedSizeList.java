@@ -7,10 +7,10 @@ import java.util.Collection;
  * Created by cxx on 2017/9/7.
  * xx.ch@outlook.com
  */
-public class FixedList<T> extends ArrayList<T> {
+public class FixedSizeList<T> extends ArrayList<T> {
     private final int maxSize;
 
-    public FixedList(int maxSize) {
+    public FixedSizeList(int maxSize) {
         super(maxSize + 1);
         if (maxSize < 1) {
             throw new IllegalArgumentException("maxSize < 1");
