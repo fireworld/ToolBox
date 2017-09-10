@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtn4;
     private Button mBtn5;
     private Button mBtn6;
+    private Button mBtn7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtn4 = fillButton("test DragViewActivity");
         mBtn5 = fillButton("test ternary text view");
         mBtn6 = fillButton("test FavoritesActivity");
+        mBtn7 = fillButton("test SearchViewActivity");
         setContentView(mRoot);
     }
 
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             navigateTo(TestActivity.class);
         } else if (v == mBtn6) {
             navigateTo(FavoritesActivity.class);
+        } else if (v == mBtn7) {
+            navigateTo(SearchViewActivity.class);
         }
     }
 
