@@ -28,7 +28,7 @@ import java.lang.reflect.Field;
  */
 public class AndroidUtils {
 
-    public static <T extends ListAdapter & Filterable> void configSearchView(ViewGroup searchView, Boolean focusable, View.OnClickListener listener, T adapter) {
+    public static void configSearchView(ViewGroup searchView, Boolean focusable, View.OnClickListener listener) {
         for (int i = 0, cnt = searchView.getChildCount(); i < cnt; i++) {
             View view = searchView.getChildAt(i);
             if (focusable != null) {
@@ -44,12 +44,10 @@ public class AndroidUtils {
                 complete.setHintTextColor(Color.WHITE);
                 complete.setTextColor(Color.WHITE);
                 complete.setTextSize(16);
-                complete.setHint(android.R.string.search_go);
-                if (adapter != null) {
-                    complete.setAdapter(adapter);
-                }
+//                complete.setHint("Search");
+                complete.setThreshold(1);
             } else if (view instanceof ViewGroup) {
-                configSearchView((ViewGroup) view, focusable, listener, adapter);
+                configSearchView((ViewGroup) view, focusable, listener);
             }
         }
     }
