@@ -1,5 +1,7 @@
 package cc.colorcat.toolbox;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -36,6 +38,40 @@ public class Utils {
 
     public static boolean isEmpty(CharSequence text) {
         return text == null || text.length() == 0;
+    }
+
+    public static void deleteIfExists(File... files) throws IOException {
+        for (File file : files) {
+            deleteIfExists(file);
+        }
+    }
+
+    public static void deleteIfExists(File file) throws IOException {
+        if (file.exists() && !file.delete()) {
+            throw new IOException("failed to delete file: " + file);
+        }
+    }
+
+    public static void deleteContents(File dir) throws IOException {
+        File[] files = dir.listFiles();
+        if (files == null) throw new IOException("not a readable directory: " + dir);
+        for (File file : files) {
+            if (file.isDirectory()) {
+                deleteContents(file);
+            }
+            if (!file.delete()) {
+                throw new IOException("failed to delete file: " + file);
+            }
+        }
+    }
+
+    public static void renameTo(File from, File to, boolean deleteDest) throws IOException {
+        if (deleteDest) {
+            deleteIfExists(to);
+        }
+        if (!from.renameTo(to)) {
+            throw new IOException("failed to rename from " + from + " to " + to);
+        }
     }
 
     private Utils() {
