@@ -86,7 +86,7 @@ public final class DiskCache {
                 return file.isFile() && file.getName().endsWith(DIRTY_SUFFIX);
             }
         });
-        Utils.deleteIfExists(dirty);
+        deleteIfExists(dirty);
     }
 
     private void readSnapshots() throws IOException {
@@ -118,7 +118,7 @@ public final class DiskCache {
     }
 
     void clear() throws IOException {
-        Utils.deleteContents(directory);
+        deleteContents(directory);
     }
 
     long maxSize() {
@@ -144,12 +144,12 @@ public final class DiskCache {
                 if (dirty.exists()) {
                     long oldLength = clean.length();
                     long newLength = dirty.length();
-                    Utils.renameTo(dirty, clean, true);
+                    renameTo(dirty, clean, true);
                     size = size - oldLength + newLength;
 //                    asyncTrimToSize();
                 }
             } else {
-                Utils.deleteIfExists(dirty);
+                deleteIfExists(dirty);
             }
         } finally {
             snapshot.writing = false;
@@ -166,7 +166,7 @@ public final class DiskCache {
         File clean = snapshot.getCleanFile();
         if (clean.exists()) {
             long length = clean.length();
-            Utils.deleteIfExists(clean);
+            deleteIfExists(clean);
             if (map.remove(snapshot.key) != null) {
                 size -= length;
             }
@@ -187,7 +187,7 @@ public final class DiskCache {
             if (value.readCount == 0 && !value.writing) {
                 File clean = value.getCleanFile();
                 long cleanLength = clean.length();
-                Utils.deleteIfExists(value.getCleanFile());
+                deleteIfExists(value.getCleanFile());
                 size -= cleanLength;
                 iterator.remove();
             }
@@ -390,6 +390,40 @@ public final class DiskCache {
         @Override
         public int compare(File f1, File f2) {
             return (int) (f1.lastModified() - f2.lastModified());
+        }
+    }
+
+    private static void deleteIfExists(File... files) throws IOException {
+        for (File file : files) {
+            deleteIfExists(file);
+        }
+    }
+
+    private static void deleteIfExists(File file) throws IOException {
+        if (file.exists() && !file.delete()) {
+            throw new IOException("failed to delete file: " + file);
+        }
+    }
+
+    private static void deleteContents(File dir) throws IOException {
+        File[] files = dir.listFiles();
+        if (files == null) throw new IOException("not a readable directory: " + dir);
+        for (File file : files) {
+            if (file.isDirectory()) {
+                deleteContents(file);
+            }
+            if (!file.delete()) {
+                throw new IOException("failed to delete file: " + file);
+            }
+        }
+    }
+
+    private static void renameTo(File from, File to, boolean deleteDest) throws IOException {
+        if (deleteDest) {
+            deleteIfExists(to);
+        }
+        if (!from.renameTo(to)) {
+            throw new IOException("failed to rename from " + from + " to " + to);
         }
     }
 }
