@@ -1,6 +1,5 @@
 package cc.colorcat.toolbox.widget;
 
-import android.content.Context;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -15,21 +14,27 @@ public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchList
     private GestureDetectorCompat mGestureDetector;
     private RecyclerView mRecyclerView;
 
-    public OnRecyclerItemClickListener(Context context) {
-        mGestureDetector = new GestureDetectorCompat(context, new ItemTouchHelperGestureListener());
-    }
-
     @Override
     public final boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         mRecyclerView = rv;
-        mGestureDetector.onTouchEvent(e);
+        dispatchTouchEvent(e);
         return false;
     }
 
     @Override
     public final void onTouchEvent(RecyclerView rv, MotionEvent e) {
         mRecyclerView = rv;
-        mGestureDetector.onTouchEvent(e);
+        dispatchTouchEvent(e);
+    }
+
+    private void dispatchTouchEvent(MotionEvent event) {
+        if (mGestureDetector == null) {
+            mGestureDetector = new GestureDetectorCompat(
+                    mRecyclerView.getContext(),
+                    new ItemTouchHelperGestureListener()
+            );
+        }
+        mGestureDetector.onTouchEvent(event);
     }
 
     @Override
