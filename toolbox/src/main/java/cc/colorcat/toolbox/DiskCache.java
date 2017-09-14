@@ -107,7 +107,7 @@ public final class DiskCache {
         }
     }
 
-    synchronized Snapshot getSnapshot(String key) {
+    public synchronized Snapshot getSnapshot(String key) {
         checkKey(key);
         Snapshot snapshot = map.get(key);
         if (snapshot == null) {
@@ -117,15 +117,15 @@ public final class DiskCache {
         return snapshot;
     }
 
-    void clear() throws IOException {
+    public void clear() throws IOException {
         deleteContents(directory);
     }
 
-    long maxSize() {
+    public long maxSize() {
         return maxSize;
     }
 
-    long size() {
+    public long size() {
         return size;
     }
 
@@ -187,7 +187,7 @@ public final class DiskCache {
             if (value.readCount == 0 && !value.writing) {
                 File clean = value.getCleanFile();
                 long cleanLength = clean.length();
-                deleteIfExists(value.getCleanFile());
+                deleteIfExists(clean);
                 size -= cleanLength;
                 iterator.remove();
             }
@@ -210,7 +210,7 @@ public final class DiskCache {
             this.key = key;
         }
 
-        InputStream getInputStream() {
+        public InputStream getInputStream() {
             synchronized (DiskCache.this) {
                 try {
                     ++readCount;
@@ -222,11 +222,11 @@ public final class DiskCache {
             }
         }
 
-        long getContentLength() {
+        public long getContentLength() {
             return getCleanFile().length();
         }
 
-        OutputStream getOutputStream() {
+        public OutputStream getOutputStream() {
             synchronized (DiskCache.this) {
                 if (!writing) {
                     try {
@@ -242,7 +242,7 @@ public final class DiskCache {
             }
         }
 
-        void requireDelete() throws IOException {
+        public void requireDelete() throws IOException {
             synchronized (DiskCache.this) {
                 if (!requiredDelete) {
                     requiredDelete = true;
