@@ -93,9 +93,9 @@ public final class Broker {
         }
         if (!subscribers.isEmpty()) {
             if (isMainThread()) {
-                deliverMulti(subscribers, subject);
+                deliverMulti(this, subject);
             } else {
-                handler.post(new Multi(subscribers, subject));
+                handler.post(new Multi(this, subject));
             }
         }
     }
@@ -129,24 +129,27 @@ public final class Broker {
 
 
     private static class Multi implements Runnable {
-        private Queue<Subscriber> subscribers;
+        private Broker broker;
         private Subject subject;
 
-        private Multi(Queue<Subscriber> subscribers, Subject subject) {
-            this.subscribers = subscribers;
+        private Multi(Broker broker, Subject subject) {
+            this.broker = broker;
             this.subject = subject;
         }
 
         @Override
         public void run() {
-            deliverMulti(subscribers, subject);
+            deliverMulti(broker, subject);
         }
     }
 
 
-    private static void deliverMulti(Queue<Subscriber> subscribers, Subject subject) {
-        for (Subscriber subscriber : subscribers) {
-            subscriber.onReceive(subject);
+    private static void deliverMulti(Broker broker, Subject subject) {
+        for (Subscriber subscriber : broker.subscribers) {
+            if (subscriber.onReceive(subject)) {
+                broker.realClearLast();
+                break;
+            }
         }
     }
 
