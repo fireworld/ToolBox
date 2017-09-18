@@ -71,7 +71,7 @@ public class BActivity extends Activity implements View.OnClickListener, Subscri
     }
 
     @Override
-    public void onReceive(Subject subject) {
+    public boolean onReceive(Subject subject) {
         switch (subject.msg()) {
             case "fromA":
                 mBtn1.setText(subject.extra().toString());
@@ -79,5 +79,6 @@ public class BActivity extends Activity implements View.OnClickListener, Subscri
             default:
                 break;
         }
+        return false;
     }
 }

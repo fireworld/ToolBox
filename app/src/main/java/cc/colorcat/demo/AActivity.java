@@ -41,7 +41,7 @@ public class AActivity extends Activity implements View.OnClickListener {
 
     private Subscriber mSubscriber = new Subscriber() {
         @Override
-        public void onReceive(Subject subject) {
+        public boolean onReceive(Subject subject) {
             switch (subject.msg()) {
                 case "fromB":
                     mBtn2.setText(subject.extra().toString());
@@ -49,7 +49,7 @@ public class AActivity extends Activity implements View.OnClickListener {
                 default:
                     break;
             }
-
+            return false;
         }
     };
 

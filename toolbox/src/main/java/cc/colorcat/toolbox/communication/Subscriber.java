@@ -6,5 +6,11 @@ package cc.colorcat.toolbox.communication;
  */
 public interface Subscriber {
 
-    void onReceive(Subject subject);
+    /**
+     * Returns the flag indicating whether or not the specified {@link Subject} should be cleared,
+     * This will prevent any other {@link Subscriber} from receiving the {@link Subject}.
+     *
+     * @return true if the specified subject should be cleared.
+     */
+    boolean onReceive(Subject subject);
 }
