@@ -130,6 +130,18 @@ public class ViewHolder {
         return this;
     }
 
+    public ViewHolder setOnFocusChangeListener(@IdRes int viewResId, View.OnFocusChangeListener listener) {
+        getView(viewResId).setOnFocusChangeListener(listener);
+        return this;
+    }
+
+    public ViewHolder setOnFocusChangeListener(View.OnFocusChangeListener listener, @IdRes int... viewResIds) {
+        for (int resId : viewResIds) {
+            getView(resId).setOnFocusChangeListener(listener);
+        }
+        return this;
+    }
+
     public ViewHolder setVisibility(@IdRes int viewResId, @Visibility int visibility) {
         getView(viewResId).setVisibility(visibility);
         return this;
