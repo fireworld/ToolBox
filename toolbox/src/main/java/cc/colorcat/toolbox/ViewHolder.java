@@ -135,6 +135,13 @@ public class ViewHolder {
         return this;
     }
 
+    public ViewHolder setVisibility(@Visibility int visibility, @IdRes int... viewResIds) {
+        for (int resId : viewResIds) {
+            getView(resId).setVisibility(visibility);
+        }
+        return this;
+    }
+
     @Visibility
     public int getVisibility(@IdRes int viewResId) {
         return getView(viewResId).getVisibility();
@@ -142,6 +149,13 @@ public class ViewHolder {
 
     public ViewHolder setEnabled(@IdRes int viewResId, boolean enabled) {
         getView(viewResId).setEnabled(enabled);
+        return this;
+    }
+
+    public ViewHolder setEnabled(boolean enabled, @IdRes int... viewResIds) {
+        for (int resId : viewResIds) {
+            getView(resId).setEnabled(enabled);
+        }
         return this;
     }
 
