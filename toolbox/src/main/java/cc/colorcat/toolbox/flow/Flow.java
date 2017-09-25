@@ -165,13 +165,20 @@ public class Flow<T> {
     }
 
     public Flow<T> takeLast(Func1<? super T, Boolean> func) {
-        for (int i = list.size() - 1; i >= 0; i--) {
+        for (int i = list.size() - 1; i >= 0; --i) {
             T t = list.get(i);
             if (func.apply(t)) {
                 return Flow.just(t);
             }
         }
         return Flow.create();
+    }
+
+    public Flow<T> doOnNext(Action1<? super T> action) {
+        for (int i = 0, size = list.size(); i < size; ++i) {
+            action.call(list.get(i));
+        }
+        return this;
     }
 
     public Flow<T> forEach(Action1<T> action) {
