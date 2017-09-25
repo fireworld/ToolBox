@@ -41,6 +41,11 @@ public class Flow<T> {
         this.list = new ArrayList<>(col);
     }
 
+    public Flow<T> add(T element) {
+        list.add(element);
+        return this;
+    }
+
     public Flow<T> concat(Flow<? extends T> flow) {
         list.addAll(flow.list);
         return this;
@@ -125,6 +130,11 @@ public class Flow<T> {
         return this;
     }
 
+    public Flow<T> clear() {
+        list.clear();
+        return this;
+    }
+
     public Flow<T> remove(Func1<T, Boolean> func) {
         Iterator<T> iterator = list.iterator();
         while (iterator.hasNext()) {
@@ -149,6 +159,16 @@ public class Flow<T> {
         int size = Math.min(count, list.size());
         List<T> newList = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {
+            newList.add(list.get(i));
+        }
+        return Flow.from(newList);
+    }
+
+    public Flow<T> takeEnd(int count) {
+        int size = list.size();
+        int realCount = Math.min(count, size);
+        List<T> newList = new ArrayList<>(realCount);
+        for (int i = size - realCount; i < size; ++i) {
             newList.add(list.get(i));
         }
         return Flow.from(newList);
@@ -190,6 +210,13 @@ public class Flow<T> {
 
     public Flow<T> collect(Action1<List<T>> action) {
         action.call(new ArrayList<>(list));
+        return this;
+    }
+
+    public Flow<T> collectSkipEmpty(Action1<List<T>> action) {
+        if (!list.isEmpty()) {
+            action.call(new ArrayList<T>(list));
+        }
         return this;
     }
 
