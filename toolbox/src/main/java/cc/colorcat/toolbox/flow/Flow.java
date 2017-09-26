@@ -211,7 +211,7 @@ public class Flow<T> {
 
     public Flow<T> collectSkipEmpty(Action1<List<T>> action) {
         if (!list.isEmpty()) {
-            action.call(new ArrayList<T>(list));
+            action.call(new ArrayList<>(list));
         }
         return this;
     }
