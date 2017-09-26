@@ -94,10 +94,6 @@ public class Flow<T> {
         return Flow.just(func.apply(new ArrayList<>(list)));
     }
 
-    public <R> R mapAllAndGet(Func1<List<T>, ? extends R> func) {
-        return func.apply(new ArrayList<>(list));
-    }
-
     public Flow<Boolean> contains(final T element) {
         return Flow.just(list.contains(element));
     }
