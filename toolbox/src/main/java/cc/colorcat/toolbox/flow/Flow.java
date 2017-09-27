@@ -73,6 +73,16 @@ public class Flow<T> {
         return Flow.from(newList);
     }
 
+    public Flow<Integer> index(Func1<? super T, Boolean> func) {
+        List<Integer> index = new ArrayList<>();
+        for (int i = 0, size = list.size(); i < size; ++i) {
+            if (func.apply(list.get(i))) {
+                index.add(i);
+            }
+        }
+        return Flow.from(index);
+    }
+
     public <R> Flow<R> map(Func1<? super T, ? extends R> func) {
         final int size = list.size();
         List<R> newList = new ArrayList<>(size);

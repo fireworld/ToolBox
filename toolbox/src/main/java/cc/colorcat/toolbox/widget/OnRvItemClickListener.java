@@ -10,7 +10,7 @@ import android.view.View;
  * Created by cxx on 2017/9/14.
  * xx.ch@outlook.com
  */
-public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+public class OnRvItemClickListener implements RecyclerView.OnItemTouchListener {
     private GestureDetectorCompat mGestureDetector;
     private RecyclerView mRecyclerView;
 
