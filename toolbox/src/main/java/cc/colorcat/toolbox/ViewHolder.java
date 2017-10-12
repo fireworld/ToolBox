@@ -292,6 +292,20 @@ public class ViewHolder {
         return this;
     }
 
+    public ViewHolder setTextColor(@ColorInt int color, @IdRes int... viewResIds) {
+        for (int resId : viewResIds) {
+            setTextColor(resId, color);
+        }
+        return this;
+    }
+
+    public ViewHolder setTextColor(ColorStateList colors, @IdRes int... viewResIds) {
+        for (int resId : viewResIds) {
+            setTextColor(resId, colors);
+        }
+        return this;
+    }
+
     /**
      * Sets flags on the Paint being used to display the text and
      * reflows the text if they are different from the old flags.
