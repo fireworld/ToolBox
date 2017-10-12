@@ -2,6 +2,7 @@ package cc.colorcat.toolbox;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -276,6 +277,18 @@ public class ViewHolder {
         TextView view = getView(viewResId);
         CharSequence tip = view.getResources().getText(resId);
         view.setError(tip, icon);
+        return this;
+    }
+
+    public ViewHolder setTextColor(@IdRes int viewResId, @ColorInt int color) {
+        TextView view = getView(viewResId);
+        view.setTextColor(color);
+        return this;
+    }
+
+    public ViewHolder setTextColor(@IdRes int viewResId, ColorStateList colors) {
+        TextView view = getView(viewResId);
+        view.setTextColor(colors);
         return this;
     }
 
