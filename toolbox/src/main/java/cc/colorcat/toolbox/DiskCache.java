@@ -226,6 +226,10 @@ public final class DiskCache {
             return getCleanFile().length();
         }
 
+        public long getLastModified() {
+            return getCleanFile().lastModified();
+        }
+
         public OutputStream getOutputStream() {
             synchronized (DiskCache.this) {
                 if (!writing) {
