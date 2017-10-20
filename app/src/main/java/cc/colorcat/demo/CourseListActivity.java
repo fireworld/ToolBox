@@ -29,6 +29,7 @@ import java.util.Set;
 import cc.colorcat.toolbox.IoUtils;
 import cc.colorcat.toolbox.L;
 import cc.colorcat.toolbox.Op;
+import cc.colorcat.toolbox.widget.OnRvItemClickListener;
 import cc.colorcat.toolbox.widget.RvAdapter;
 import cc.colorcat.toolbox.widget.RvHolder;
 import cc.colorcat.toolbox.widget.SimpleRvAdapter;
@@ -67,6 +68,32 @@ public class CourseListActivity extends Activity {
 //        mAdapter = createRecyclerViewAdapter();
 //        mAdapter = createRvAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new OnRvItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder holder) {
+                super.onItemClick(holder);
+                L.e("CourseActivity", "position = " + holder.getAdapterPosition());
+            }
+
+            @Override
+            public void onItemLongClick(final RecyclerView.ViewHolder holder) {
+                super.onItemLongClick(holder);
+                new AlertDialog.Builder(CourseListActivity.this).setTitle("Tip").setMessage("delete?").setCancelable(false)
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int position = holder.getAdapterPosition();
+                                mList.remove(position);
+                                mAdapter.notifyItemRemoved(position);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).show();
+            }
+        });
         refreshData();
     }
 
@@ -94,30 +121,6 @@ public class CourseListActivity extends Activity {
                         .setText(R.id.tv_description, course.getDescription());
             }
         };
-        adapter.setOnItemLongClickListener(new SimpleRvAdapter.OnItemLongClickListener() {
-            @Override
-            public void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, final int position) {
-                new AlertDialog.Builder(CourseListActivity.this).setTitle("Tip").setMessage("delete?").setCancelable(false)
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mList.remove(position);
-                                mAdapter.notifyItemRemoved(position);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).show();
-            }
-        });
-        adapter.setOnItemClickListener(new RvAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder holder, View itemView, int position) {
-                L.e("CourseActivity", "position = " + position);
-            }
-        });
         return adapter;
     }
 
@@ -200,26 +203,6 @@ public class CourseListActivity extends Activity {
                 return mList.size();
             }
         };
-
-        adapter.setOnItemLongClickListener(new SimpleRvAdapter.OnItemLongClickListener() {
-            @Override
-            public void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, final int position) {
-                new AlertDialog.Builder(CourseListActivity.this).setTitle("Tip").setMessage("delete?").setCancelable(false)
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mList.remove(position);
-                                mAdapter.notifyItemRemoved(position);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).show();
-            }
-        });
-
         return adapter;
     }
 

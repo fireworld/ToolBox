@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import cc.colorcat.toolbox.widget.OnRvItemClickListener;
 import cc.colorcat.toolbox.widget.RvAdapter;
 import cc.colorcat.toolbox.widget.RvHolder;
 import cc.colorcat.toolbox.widget.SimpleRvAdapter;
@@ -176,10 +177,11 @@ public class FavoritesActivity extends Activity {
                     return target.getAdapterPosition() != 0;
                 }
             });
-            mAdapter.setOnItemLongClickListener(new RvAdapter.OnItemLongClickListener() {
+            recyclerView.addOnItemTouchListener(new OnRvItemClickListener() {
                 @Override
-                public void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, int position) {
-                    if (position != 0) {
+                public void onItemLongClick(RecyclerView.ViewHolder holder) {
+                    super.onItemLongClick(holder);
+                    if (holder.getAdapterPosition() != 0) {
                         helper.startDrag(holder);
                     }
                 }

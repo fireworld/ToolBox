@@ -11,13 +11,11 @@ import android.view.ViewGroup;
  * xx.ch@outlook.com
  */
 public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
-    private OnItemLongClickListener mLongClick;
-    private OnItemClickListener mClick;
 
     @Override
     public final RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutResId(viewType), parent, false);
-        RvHolder holder = new RvHolder(itemView, mLongClick, mClick);
+        RvHolder holder = new RvHolder(itemView);
         holder.getHelper().setViewType(viewType).setPosition(holder.getAdapterPosition());
         return holder;
     }
@@ -29,36 +27,8 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
         bindView(holder, position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mClick = listener;
-    }
-
-    public OnItemClickListener getOnItemClickListener() {
-        return mClick;
-    }
-
-    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
-        mLongClick = listener;
-    }
-
-    public OnItemLongClickListener getOnItemLongClickListener() {
-        return mLongClick;
-    }
-
     @LayoutRes
     public abstract int getLayoutResId(int viewType);
 
-
     public abstract void bindView(RvHolder holder, int position);
-
-
-    public interface OnItemLongClickListener {
-
-        void onItemLongClick(RecyclerView.ViewHolder holder, View itemView, int position);
-    }
-
-    public interface OnItemClickListener {
-
-        void onItemClick(RecyclerView.ViewHolder holder, View itemView, int position);
-    }
 }
