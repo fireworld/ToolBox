@@ -28,6 +28,7 @@
         <activity android:name=".TestActivity"/>
         <activity android:name=".FavoritesActivity"/>
         <activity android:name=".SearchViewActivity"/>
+        <activity android:name=".SearchBarActivity"/>
     </application>
 
 </manifest>

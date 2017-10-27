@@ -147,7 +147,6 @@ public final class Broker {
     private static void deliverMulti(Broker broker, Subject subject) {
         for (Subscriber subscriber : broker.subscribers) {
             if (subscriber.onReceive(subject)) {
-                broker.realClearLast();
                 break;
             }
         }

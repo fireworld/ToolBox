@@ -7,10 +7,10 @@ package cc.colorcat.toolbox.communication;
 public interface Subscriber {
 
     /**
-     * Returns the flag indicating whether or not the specified {@link Subject} should be cleared,
-     * This will prevent any other {@link Subscriber} from receiving the {@link Subject}.
+     * Returns the flag indicating whether or not delivering the specified {@link Subject} should be intercepted,
+     * This will prevent any other {@link Subscriber} after this from receiving the {@link Subject}.
      *
-     * @return true if the specified subject should be cleared.
+     * @return true if delivering the specified subject should be intercepted.
      */
     boolean onReceive(Subject subject);
 }

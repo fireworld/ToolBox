@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1DBC70</color>
+    <color name="colorPrimaryDark">#009B4D</color>
+    <color name="colorAccent">#2478C6</color>
+
+    <color name="lightBlue">#6FC6D9</color>
+    <color name="red">#FFFF0000</color>
+    <color name="windowBackground">#FFDFDFDF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="darkerWhite">#EFEFEF</color>
+    <color name="lightGrey">#AFAFAF</color>
+    <color name="grey">#767676</color>
+    <color name="darkerGrey">#454545</color>
+    <color name="black">#000000</color>
+
+    <color name="fontWhite">@color/white</color>
+    <color name="fontDarkerWhite">@color/darkerWhite</color>
+    <color name="fontLightGrey">@color/lightGrey</color>
+    <color name="fontGrey">@color/grey</color>
+    <color name="fontDarkerGrey">@color/darkerGrey</color>
+    <color name="fontBlack">@color/black</color>
+    <color name="fontPrimary">@color/colorPrimary</color>
+    <color name="fontLightBlue">@color/lightBlue</color>
+    <color name="fontRed">@color/red</color>
+    <color name="fontAccent">@color/colorAccent</color>
+
+    <color name="bgPrimary">@color/colorPrimary</color>
+    <color name="bgPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="bgWhite">@color/white</color>
+    <color name="bgDarkerWhite">@color/darkerWhite</color>
+    <color name="bgLightGrey">@color/lightGrey</color>
+    <color name="bgGrey">@color/grey</color>
+    <color name="bgDarkerGrey">@color/darkerGrey</color>
+    <color name="bgAccent">@color/colorAccent</color>
+    <color name="bgLightBlue">@color/lightBlue</color>
+</resources>
