@@ -46,7 +46,6 @@ public class SearchBar extends FrameLayout {
     private AutoCompleteTextView mSearchText;
     private ImageView mClearButton;
 
-    private CharSequence mQueryHint;
     private CharSequence mOldQuery;
 
     private boolean mClearingFocus;
@@ -105,18 +104,16 @@ public class SearchBar extends FrameLayout {
         mSearchText.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    post(mShowImeRunnable);
-                }
+                setImeVisibility(hasFocus);
                 if (mQueryFocusChangeListener != null) {
                     mQueryFocusChangeListener.onFocusChange(mSearchText, hasFocus);
                 }
             }
         });
 
-        mQueryHint = a.getText(R.styleable.SearchBar_queryHint);
-        if (!TextUtils.isEmpty(mQueryHint)) {
-            mSearchText.setHint(mQueryHint);
+        CharSequence queryHint = a.getText(R.styleable.SearchBar_queryHint);
+        if (!TextUtils.isEmpty(queryHint)) {
+            mSearchText.setHint(queryHint);
         }
         a.recycle();
     }
@@ -135,6 +132,30 @@ public class SearchBar extends FrameLayout {
         mClearingFocus = false;
     }
 
+    public void setOnQueryFocusChangeListener(OnFocusChangeListener listener) {
+        mQueryFocusChangeListener = listener;
+    }
+
+    public void setOnQueryTextListener(OnQueryTextListener listener) {
+        mQueryChangeListener = listener;
+    }
+
+    public void setOnSuggestionListener(OnSuggestionListener listener) {
+        mSuggestionListener = listener;
+    }
+
+    public void setOnSearchClickListener(OnClickListener listener) {
+        mSearchClickListener = listener;
+    }
+
+    public void showDropDown() {
+        mSearchText.showDropDown();
+    }
+
+    public void dismissDropDown() {
+        mSearchText.dismissDropDown();
+    }
+
     private OnClickListener mClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -143,15 +164,13 @@ public class SearchBar extends FrameLayout {
             } else if (v == mClearButton) {
                 onClearClicked();
             }
-//            else if (v == mSearchText) {
-//                forceSuggestionQuery();
-//            }
         }
     };
 
     private void onSearchClicked() {
-        mSearchText.requestFocus();
-        setImeVisibility(true);
+        if (mSearchText.requestFocus()) {
+            setImeVisibility(true);
+        }
         if (mSearchClickListener != null) {
             mSearchClickListener.onClick(mSearchButton);
         }
@@ -187,12 +206,10 @@ public class SearchBar extends FrameLayout {
     };
 
     private void onTextChanged(CharSequence newText) {
-//        mUserQuery = mSearchText.getText();
         updateClearButtonVisibility();
-        if (mQueryChangeListener != null && !TextUtils.equals(newText, mOldQuery)) {
+        if (mQueryChangeListener != null) {
             mQueryChangeListener.onQueryTextChange(newText.toString());
         }
-        mOldQuery = newText;
     }
 
     private TextView.OnEditorActionListener mEditorActionListener = new TextView.OnEditorActionListener() {
@@ -326,16 +343,27 @@ public class SearchBar extends FrameLayout {
     }
 
     private void setImeVisibility(final boolean visible) {
-        if (visible) {
-            post(mShowImeRunnable);
-        } else {
-            removeCallbacks(mShowImeRunnable);
-            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
+        InputMethodManager imm = getInputMethodManager();
+        if (imm != null) {
+            if (visible) {
+                imm.showSoftInput(mSearchText, InputMethodManager.SHOW_IMPLICIT);
+            } else {
                 imm.hideSoftInputFromWindow(getWindowToken(), 0);
             }
         }
     }
+
+//    private void setImeVisibility(final boolean visible) {
+//        if (visible) {
+//            post(mShowImeRunnable);
+//        } else {
+//            removeCallbacks(mShowImeRunnable);
+//            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//            if (imm != null) {
+//                imm.hideSoftInputFromWindow(getWindowToken(), 0);
+//            }
+//        }
+//    }
 
     private Runnable mShowImeRunnable = new Runnable() {
         @Override
@@ -357,6 +385,10 @@ public class SearchBar extends FrameLayout {
             mAdapter = adapter;
             mSearchText.setAdapter(mAdapter);
         }
+    }
+
+    public void setThreshold(int threshold) {
+        mSearchText.setThreshold(threshold);
     }
 
     private InputMethodManager getInputMethodManager() {

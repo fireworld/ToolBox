@@ -24,7 +24,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:background="@null"
-        android:dropDownAnchor="@id/search_button"
+        android:dropDownAnchor="@id/search_text"
         android:dropDownHeight="wrap_content"
         android:dropDownHorizontalOffset="0dip"
         android:dropDownVerticalOffset="0dip"
