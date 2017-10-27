@@ -102,7 +102,7 @@ public class CourseListActivity extends Activity {
     private Set<View> mViewStats = new HashSet<>();
 
     private SimpleRvAdapter<Course> createSimpleRvAdapter() {
-        SimpleRvAdapter<Course> adapter = new SimpleRvAdapter<Course>(mList, R.layout.adapter_course_list2) {
+        return new SimpleRvAdapter<Course>(mList, R.layout.adapter_course_list2) {
             @Override
             public void bindView(RvHolder holder, Course course) {
                 mHolderStats.add(holder);
@@ -121,7 +121,6 @@ public class CourseListActivity extends Activity {
                         .setText(R.id.tv_description, course.getDescription());
             }
         };
-        return adapter;
     }
 
     private RecyclerView.Adapter<RvHolder> createRecyclerViewAdapter() {
