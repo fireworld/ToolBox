@@ -10,14 +10,18 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
 import cc.colorcat.toolbox.R;
+
 
 /**
  * Created by cxx on 2017/8/30.
@@ -63,6 +67,33 @@ public class TernaryTextView extends View {
         mTextPaint.setAntiAlias(true);
         mTextPaint.setTextSize(textSize);
         mTextPaint.setColor(textColor);
+    }
+
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        if (mText != null) {
+            SavedState ss = new SavedState(superState);
+            ss.text = mText.toString();
+            return ss;
+        }
+        return superState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        if (ss.text != null) {
+            setText(ss.text);
+        }
     }
 
     public void setText(CharSequence text) {
@@ -256,5 +287,44 @@ public class TernaryTextView extends View {
     private static class Size {
         private int width = 0;
         private int height = 0;
+    }
+
+    public static class SavedState extends BaseSavedState {
+        CharSequence text;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            text = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            TextUtils.writeToParcel(text, out, flags);
+        }
+
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
+                    @Override
+                    public SavedState createFromParcel(Parcel source) {
+                        return new SavedState(source);
+                    }
+
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+
+        @Override
+        public String toString() {
+            return "SavedState{" +
+                    "text=" + text +
+                    '}';
+        }
     }
 }
