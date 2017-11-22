@@ -1,5 +1,6 @@
 package cc.colorcat.toolbox;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -52,6 +53,7 @@ public class AndroidUtils {
         }
     }
 
+    @SuppressLint("MissingPermission")
     public static boolean hasAvailableNetwork(Context ctx) {
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
