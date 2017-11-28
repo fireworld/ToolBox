@@ -5,15 +5,15 @@ import android.support.annotation.LayoutRes;
 import java.util.List;
 
 /**
- * Created by cxx on 2017/8/11.
+ * Created by cxx on 2017/11/28.
  * xx.ch@outlook.com
  */
-public abstract class SimpleRvAdapter<T> extends RvAdapter {
+public abstract class SimpleChoiceRvAdapter<T> extends ChoiceRvAdapter {
     private final List<T> mData;
     @LayoutRes
     private final int mLayoutResId;
 
-    public SimpleRvAdapter(List<T> data, @LayoutRes int layoutResId) {
+    public SimpleChoiceRvAdapter(List<T> data, @LayoutRes int layoutResId) {
         mData = data;
         mLayoutResId = layoutResId;
     }

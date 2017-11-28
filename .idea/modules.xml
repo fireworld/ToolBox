@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToolBox.iml" filepath="$PROJECT_DIR$/ToolBox.iml" />
+      <module fileurl="file://D:\Workspace\AsProjects\ToolBox\ToolBox.iml" filepath="D:\Workspace\AsProjects\ToolBox\ToolBox.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Workspace\AsProjects\ToolBox\app\app.iml" filepath="D:\Workspace\AsProjects\ToolBox\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/toolbox/toolbox.iml" filepath="$PROJECT_DIR$/toolbox/toolbox.iml" />
+      <module fileurl="file://D:\Workspace\AsProjects\ToolBox\toolbox\toolbox.iml" filepath="D:\Workspace\AsProjects\ToolBox\toolbox\toolbox.iml" />
     </modules>
   </component>
 </project>
