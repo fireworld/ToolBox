@@ -18,8 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
-import android.widget.Filterable;
-import android.widget.ListAdapter;
 
 import java.lang.reflect.Field;
 

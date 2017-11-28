@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cc.colorcat.toolbox.L;
-import cc.colorcat.toolbox.flow.Action1;
-import cc.colorcat.toolbox.flow.Flow;
-import cc.colorcat.toolbox.flow.Func1;
 import cc.colorcat.toolbox.widget.SearchBar;
 
 /**

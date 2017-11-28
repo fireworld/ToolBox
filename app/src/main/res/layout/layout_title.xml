@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar_root"
     android:layout_width="match_parent"
     android:layout_height="48dp"
@@ -20,7 +18,7 @@
         android:background="@null"
         android:minWidth="0dp"
         android:textColor="@color/fontWhite"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <cc.colorcat.toolbox.widget.SearchBar
         android:id="@+id/sb_search"
@@ -33,6 +31,6 @@
         android:visibility="visible"
         app:clearIcon="@drawable/ic_clear_white_16dp"
         app:queryHint="搜索"
-        app:searchIcon="@drawable/ic_search"/>
+        app:searchIcon="@drawable/ic_search" />
 
 </android.support.v7.widget.Toolbar>

@@ -212,7 +212,8 @@ public class CourseListActivity extends Activity {
                 List<Course> courses = new ArrayList<>(30);
                 try {
                     String json = IoUtils.loadString(URL);
-                    Response<List<Course>> response = mGson.fromJson(json, new TypeToken<Response<List<Course>>>() {}.getType());
+                    Response<List<Course>> response = mGson.fromJson(json, new TypeToken<Response<List<Course>>>() {
+                    }.getType());
                     courses.addAll(Op.nullElse(response.getData(), Collections.<Course>emptyList()));
                 } catch (IOException e) {
                     L.e(e);

@@ -24,7 +24,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @Override
     public final void onBindViewHolder(RvHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (inChoiceMode()) {
+        if (inChoiceMode() && isSelectable(position)) {
             setSelected(holder.itemView, isSelectedWithChoiceMode(position));
         }
 //        final RvHolder.Helper helper = holder.getHelper();
@@ -75,6 +75,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     public void setSelection(int position) {
         if (inChoiceMode()
                 && checkPosition(position)
+                && isSelectable(position)
                 && (mChoiceMode == ChoiceMode.MULTIPLE || position != mSelectedPosition)
                 && !isSelectedWithChoiceMode(position)) {
             dispatchSelect(position, true);
@@ -125,6 +126,10 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
     }
 
+    public boolean isSelectable(int position) {
+        return true;
+    }
+
     @LayoutRes
     public abstract int getLayoutResId(int viewType);
 
@@ -146,7 +151,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
             super.onItemClick(holder);
             if (inChoiceMode()) {
                 final int position = holder.getAdapterPosition();
-                if (mChoiceMode == ChoiceMode.MULTIPLE || mSelectedPosition != position) {
+                if (isSelectable(position)
+                        && (mChoiceMode == ChoiceMode.MULTIPLE || mSelectedPosition != position)) {
                     dispatchSelect(position, !isSelectedWithChoiceMode(position));
                 }
             }

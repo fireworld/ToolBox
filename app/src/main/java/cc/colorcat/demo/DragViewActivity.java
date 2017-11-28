@@ -74,7 +74,7 @@ public class DragViewActivity extends Activity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e){
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                 return false;
             }
 
@@ -310,7 +310,8 @@ public class DragViewActivity extends Activity {
                 List<Course> courses = new ArrayList<>(30);
                 try {
                     String json = IoUtils.loadString(URL);
-                    Response<List<Course>> response = mGson.fromJson(json, new TypeToken<Response<List<Course>>>() {}.getType());
+                    Response<List<Course>> response = mGson.fromJson(json, new TypeToken<Response<List<Course>>>() {
+                    }.getType());
                     courses.addAll(Op.nullElse(response.getData(), Collections.<Course>emptyList()));
                 } catch (IOException e) {
                     L.e(e);

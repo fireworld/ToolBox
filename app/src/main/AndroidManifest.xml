@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="cc.colorcat.demo">
+    package="cc.colorcat.demo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -14,21 +14,21 @@
         android:theme="@style/AppTheme">
         <activity android:name="cc.colorcat.demo.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".AActivity"/>
-        <activity android:name=".BActivity"/>
-        <activity android:name=".CourseActivity"/>
-        <activity android:name=".CourseListActivity"/>
-        <activity android:name=".DragViewActivity"/>
-        <activity android:name=".TestActivity"/>
-        <activity android:name=".FavoritesActivity"/>
-        <activity android:name=".SearchViewActivity"/>
-        <activity android:name=".SearchBarActivity"/>
+        <activity android:name=".AActivity" />
+        <activity android:name=".BActivity" />
+        <activity android:name=".CourseActivity" />
+        <activity android:name=".CourseListActivity" />
+        <activity android:name=".DragViewActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".FavoritesActivity" />
+        <activity android:name=".SearchViewActivity" />
+        <activity android:name=".SearchBarActivity" />
     </application>
 
 </manifest>

@@ -24,9 +24,9 @@ import java.util.Set;
 import cc.colorcat.toolbox.IoUtils;
 import cc.colorcat.toolbox.L;
 import cc.colorcat.toolbox.Op;
-import cc.colorcat.toolbox.widget.SimpleLvAdapter;
-import cc.colorcat.toolbox.widget.LvHolder;
 import cc.colorcat.toolbox.widget.LvAdapter;
+import cc.colorcat.toolbox.widget.LvHolder;
+import cc.colorcat.toolbox.widget.SimpleLvAdapter;
 import cc.colorcat.vangogh.CircleTransformation;
 import cc.colorcat.vangogh.VanGogh;
 
@@ -141,7 +141,8 @@ public class CourseActivity extends Activity {
                 List<Course> courses = new ArrayList<>(30);
                 try {
                     String json = IoUtils.loadString(URL);
-                    Response<List<Course>> response = mGson.fromJson(json, new TypeToken<Response<List<Course>>>() {}.getType());
+                    Response<List<Course>> response = mGson.fromJson(json, new TypeToken<Response<List<Course>>>() {
+                    }.getType());
                     courses.addAll(Op.nullElse(response.getData(), Collections.<Course>emptyList()));
                 } catch (IOException e) {
                     L.e(e);

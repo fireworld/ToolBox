@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="GifView">
-        <attr name="gif" format="reference"/>
-        <attr name="paused" format="boolean"/>
+        <attr name="gif" format="reference" />
+        <attr name="paused" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="InterceptSwipeRefreshLayout">
-        <attr name="refreshEnabled" format="boolean"/>
+        <attr name="refreshEnabled" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="TranslateView">
-        <attr name="src" format="reference"/>
-        <attr name="speed" format="dimension"/>
-        <attr name="translating" format="boolean"/>
+        <attr name="src" format="reference" />
+        <attr name="speed" format="dimension" />
+        <attr name="translating" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="ScrollViewPager">
-        <attr name="enable_scroll" format="boolean"/>
-        <attr name="enable_intercept" format="boolean"/>
+        <attr name="enable_scroll" format="boolean" />
+        <attr name="enable_intercept" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="GeminiButton">
-        <attr name="min_number" format="integer"/>
-        <attr name="max_number" format="integer"/>
-        <attr name="default_number" format="integer"/>
-        <attr name="interval" format="integer"/>
-        <attr name="text_size" format="dimension"/>
+        <attr name="min_number" format="integer" />
+        <attr name="max_number" format="integer" />
+        <attr name="default_number" format="integer" />
+        <attr name="interval" format="integer" />
+        <attr name="text_size" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="TernaryTextView">
-        <attr name="drawableStart" format="reference"/>
-        <attr name="drawableCenter" format="reference"/>
-        <attr name="drawableEnd" format="reference"/>
-        <attr name="text" format="string"/>
-        <attr name="textColor" format="color"/>
-        <attr name="textSize" format="dimension"/>
+        <attr name="drawableStart" format="reference" />
+        <attr name="drawableCenter" format="reference" />
+        <attr name="drawableEnd" format="reference" />
+        <attr name="text" format="string" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="SearchBar">
-        <attr name="searchIcon" format="reference"/>
-        <attr name="queryHint" format="string"/>
-        <attr name="clearIcon" format="reference"/>
+        <attr name="searchIcon" format="reference" />
+        <attr name="queryHint" format="string" />
+        <attr name="clearIcon" format="reference" />
     </declare-styleable>
 </resources>

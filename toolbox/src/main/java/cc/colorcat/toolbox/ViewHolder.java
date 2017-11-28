@@ -385,5 +385,6 @@ public class ViewHolder {
 
     @IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Visibility {}
+    public @interface Visibility {
+    }
 }
