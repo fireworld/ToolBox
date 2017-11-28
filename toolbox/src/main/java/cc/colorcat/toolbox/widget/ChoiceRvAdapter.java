@@ -3,7 +3,6 @@ package cc.colorcat.toolbox.widget;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.AdapterView;
 
 import java.lang.annotation.Retention;
@@ -14,6 +13,25 @@ import java.lang.annotation.RetentionPolicy;
  * xx.ch@outlook.com
  */
 public abstract class ChoiceRvAdapter extends RvAdapter {
+    @IntDef({ChoiceMode.NONE, ChoiceMode.SINGLE, ChoiceMode.MULTIPLE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ChoiceMode {
+        /**
+         * Does not indicate choices
+         */
+        int NONE = 0;
+
+        /**
+         * Allows up to one choice
+         */
+        int SINGLE = 1;
+
+        /**
+         * Allows multiple choices
+         */
+        int MULTIPLE = 2;
+    }
+
     @ChoiceMode
     private int mChoiceMode = ChoiceMode.NONE;
     private int mSelectedPosition = AdapterView.INVALID_POSITION;
@@ -25,23 +43,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     public final void onBindViewHolder(RvHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         if (inChoiceMode() && isSelectable(position)) {
-            setSelected(holder.itemView, isSelectedWithChoiceMode(position));
+            setSelected(holder, isSelectedWithChoiceMode(position));
         }
-    }
-
-    private boolean isSelectedWithChoiceMode(int position) {
-        if (mChoiceMode == ChoiceMode.SINGLE) {
-            return mSelectedPosition == position && isSelected(position);
-        }
-        return mChoiceMode == ChoiceMode.MULTIPLE && isSelected(position);
-    }
-
-    public void setOnItemSelectedListener(OnItemSelectedChangedListener listener) {
-        mSelectedListener = listener;
-    }
-
-    public OnItemSelectedChangedListener getOnItemSelectedChangedListener() {
-        return mSelectedListener;
     }
 
     public void setChoiceMode(@ChoiceMode int choiceMode) {
@@ -62,8 +65,12 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         mRecyclerView.addOnItemTouchListener(mSelectHelper);
     }
 
-    protected void setSelected(View itemView, boolean selected) {
-        itemView.setSelected(selected);
+    public void setOnItemSelectedListener(OnItemSelectedChangedListener listener) {
+        mSelectedListener = listener;
+    }
+
+    public OnItemSelectedChangedListener getOnItemSelectedChangedListener() {
+        return mSelectedListener;
     }
 
     public void setSelection(int position) {
@@ -79,6 +86,27 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     public int getSelection() {
         return mSelectedPosition;
     }
+
+    protected void setSelected(RvHolder holder, boolean selected) {
+        holder.itemView.setSelected(selected);
+    }
+
+    public boolean isSelected(int position) {
+        return mChoiceMode == ChoiceMode.SINGLE;
+    }
+
+    public void setSelected(int position, boolean selected) {
+
+    }
+
+    public boolean isSelectable(int position) {
+        return true;
+    }
+
+    @LayoutRes
+    public abstract int getLayoutResId(int viewType);
+
+    public abstract void bindView(RvHolder holder, int position);
 
     private void dispatchSelect(int position, boolean selected) {
         if (mChoiceMode == ChoiceMode.SINGLE) {
@@ -100,9 +128,9 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     private void notifySelectedChanged(int position, boolean selected) {
         setSelected(position, selected);
         if (mRecyclerView != null) {
-            RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(position);
+            RvHolder holder = (RvHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
             if (holder != null) {
-                setSelected(holder.itemView, selected);
+                setSelected(holder, selected);
             }
         } else {
             notifyItemChanged(position);
@@ -112,30 +140,19 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         }
     }
 
-    public boolean isSelected(int position) {
-        return mChoiceMode == ChoiceMode.SINGLE;
+    private boolean inChoiceMode() {
+        return mChoiceMode == ChoiceMode.SINGLE || mChoiceMode == ChoiceMode.MULTIPLE;
     }
-
-    public void setSelected(int position, boolean selected) {
-
-    }
-
-    public boolean isSelectable(int position) {
-        return true;
-    }
-
-    @LayoutRes
-    public abstract int getLayoutResId(int viewType);
-
-    public abstract void bindView(RvHolder holder, int position);
-
 
     private boolean checkPosition(int position) {
         return position >= 0 && position < getItemCount();
     }
 
-    private boolean inChoiceMode() {
-        return mChoiceMode == ChoiceMode.SINGLE || mChoiceMode == ChoiceMode.MULTIPLE;
+    private boolean isSelectedWithChoiceMode(int position) {
+        if (mChoiceMode == ChoiceMode.SINGLE) {
+            return mSelectedPosition == position && isSelected(position);
+        }
+        return mChoiceMode == ChoiceMode.MULTIPLE && isSelected(position);
     }
 
 
@@ -157,25 +174,5 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     public interface OnItemSelectedChangedListener {
 
         void onItemSelectedChanged(int position, boolean selected);
-    }
-
-
-    @IntDef({ChoiceMode.NONE, ChoiceMode.SINGLE, ChoiceMode.MULTIPLE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ChoiceMode {
-        /**
-         * Does not indicate choices
-         */
-        int NONE = 0;
-
-        /**
-         * Allows up to one choice
-         */
-        int SINGLE = 1;
-
-        /**
-         * Allows multiple choices
-         */
-        int MULTIPLE = 2;
     }
 }

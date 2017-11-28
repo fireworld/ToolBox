@@ -393,7 +393,7 @@ public final class DiskCache {
     private static class FileComparator implements Comparator<File> {
         @Override
         public int compare(File f1, File f2) {
-            return (int) (f1.lastModified() - f2.lastModified());
+            return Long.compare(f1.lastModified(), f2.lastModified());
         }
     }
 
