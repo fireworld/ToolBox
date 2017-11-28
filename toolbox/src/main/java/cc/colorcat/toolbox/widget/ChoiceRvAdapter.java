@@ -27,12 +27,6 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         if (inChoiceMode() && isSelectable(position)) {
             setSelected(holder.itemView, isSelectedWithChoiceMode(position));
         }
-//        final RvHolder.Helper helper = holder.getHelper();
-//        helper.setViewType(holder.getItemViewType()).setPosition(position);
-//        if (inChoiceMode()) {
-//            setSelected(helper.getRoot(), isSelectedWithChoiceMode(position));
-//        }
-//        bindView(holder, position);
     }
 
     private boolean isSelectedWithChoiceMode(int position) {
