@@ -113,7 +113,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     public boolean isSelected(int position) {
-        return false;
+        return mChoiceMode == ChoiceMode.SINGLE;
     }
 
     public void setSelected(int position, boolean selected) {
