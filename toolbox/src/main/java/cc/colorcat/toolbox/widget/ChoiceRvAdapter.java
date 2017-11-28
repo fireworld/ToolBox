@@ -108,7 +108,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         if (mRecyclerView != null) {
             RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(position);
             if (holder != null) {
-                holder.itemView.setSelected(selected);
+                setSelected(holder.itemView, selected);
             }
         } else {
             notifyItemChanged(position);
