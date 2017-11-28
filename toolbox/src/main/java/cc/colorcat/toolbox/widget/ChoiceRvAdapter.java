@@ -37,9 +37,9 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
     private boolean isSelectedWithChoiceMode(int position) {
         if (mChoiceMode == ChoiceMode.SINGLE) {
-            return mSelectedPosition == position;
+            return mSelectedPosition == position && isSelected(position);
         }
-        return isSelected(position);
+        return mChoiceMode == ChoiceMode.MULTIPLE && isSelected(position);
     }
 
     public void setOnItemSelectedListener(OnItemSelectedChangedListener listener) {
