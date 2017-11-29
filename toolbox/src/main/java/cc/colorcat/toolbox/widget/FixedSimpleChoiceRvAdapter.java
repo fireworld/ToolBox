@@ -23,8 +23,8 @@ public abstract class FixedSimpleChoiceRvAdapter<T> extends SimpleChoiceRvAdapte
     }
 
     @Override
-    public final void setSelected(int position, boolean selected) {
-        super.setSelected(position, selected);
+    public final void updateItem(int position, boolean selected) {
+        super.updateItem(position, selected);
         mRecord.put(position, selected);
     }
 }

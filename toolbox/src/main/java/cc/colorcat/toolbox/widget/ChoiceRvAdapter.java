@@ -43,7 +43,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     public final void onBindViewHolder(RvHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         if (inChoiceMode() && isSelectable(position)) {
-            setSelected(holder, isSelectedWithChoiceMode(position));
+            updateItemView(holder, isSelectedWithChoiceMode(position));
         }
     }
 
@@ -87,19 +87,19 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         return mSelectedPosition;
     }
 
-    protected void setSelected(RvHolder holder, boolean selected) {
+    protected void updateItemView(RvHolder holder, boolean selected) {
         holder.itemView.setSelected(selected);
     }
 
-    public boolean isSelected(int position) {
+    protected boolean isSelected(int position) {
         return mChoiceMode == ChoiceMode.SINGLE;
     }
 
-    public void setSelected(int position, boolean selected) {
+    protected void updateItem(int position, boolean selected) {
 
     }
 
-    public boolean isSelectable(int position) {
+    protected boolean isSelectable(int position) {
         return true;
     }
 
@@ -126,11 +126,11 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     private void notifySelectedChanged(int position, boolean selected) {
-        setSelected(position, selected);
+        updateItem(position, selected);
         if (mRecyclerView != null) {
             RvHolder holder = (RvHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
             if (holder != null) {
-                setSelected(holder, selected);
+                updateItemView(holder, selected);
             }
         } else {
             notifyItemChanged(position);
