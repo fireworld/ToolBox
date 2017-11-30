@@ -47,6 +47,23 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         }
     }
 
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+        if (mSelectHelper == null) {
+            mSelectHelper = new SelectHelper();
+        }
+        mRecyclerView.addOnItemTouchListener(mSelectHelper);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView.removeOnItemTouchListener(mSelectHelper);
+        mRecyclerView = null;
+    }
+
     public void setChoiceMode(@ChoiceMode int choiceMode) {
         if (choiceMode == ChoiceMode.NONE
                 || choiceMode == ChoiceMode.SINGLE
@@ -55,14 +72,6 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         } else {
             throw new IllegalArgumentException("Illegal choiceMode, value = " + choiceMode);
         }
-    }
-
-    public void attachForChoice(RecyclerView recyclerView) {
-        mRecyclerView = recyclerView;
-        if (mSelectHelper == null) {
-            mSelectHelper = new SelectHelper();
-        }
-        mRecyclerView.addOnItemTouchListener(mSelectHelper);
     }
 
     public void setOnItemSelectedListener(OnItemSelectedChangedListener listener) {
@@ -127,11 +136,9 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
     private void notifySelectedChanged(int position, boolean selected) {
         updateItem(position, selected);
-        if (mRecyclerView != null) {
-            RvHolder holder = (RvHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
-            if (holder != null) {
-                updateItemView(holder, selected);
-            }
+        RvHolder holder = (RvHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
+        if (holder != null) {
+            updateItemView(holder, selected);
         } else {
             notifyItemChanged(position);
         }
