@@ -83,10 +83,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     public void setSelection(int position) {
-        if (inChoiceMode()
-                && checkPosition(position)
+        if (checkPosition(position)
                 && isSelectable(position)
-                && (mChoiceMode == ChoiceMode.MULTIPLE || position != mSelectedPosition)
                 && !isSelectedWithChoiceMode(position)) {
             dispatchSelect(position, true);
         }
@@ -169,9 +167,13 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
             super.onItemClick(holder);
             if (inChoiceMode()) {
                 final int position = holder.getAdapterPosition();
-                if (isSelectable(position)
-                        && (mChoiceMode == ChoiceMode.MULTIPLE || mSelectedPosition != position)) {
-                    dispatchSelect(position, !isSelectedWithChoiceMode(position));
+                if (isSelectable(position)) {
+                    boolean selected = isSelectedWithChoiceMode(position);
+                    if (mChoiceMode == ChoiceMode.MULTIPLE) {
+                        dispatchSelect(position, !selected);
+                    } else if (!selected) {
+                        dispatchSelect(position, true);
+                    }
                 }
             }
         }
