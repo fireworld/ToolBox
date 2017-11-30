@@ -74,6 +74,11 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         }
     }
 
+    @ChoiceMode
+    public int getChoiceMode() {
+        return mChoiceMode;
+    }
+
     public void setOnItemSelectedListener(OnItemSelectedChangedListener listener) {
         mSelectedListener = listener;
     }
@@ -83,7 +88,8 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     public void setSelection(int position) {
-        if (checkPosition(position)
+        if (inChoiceMode()
+                && checkPosition(position)
                 && isSelectable(position)
                 && !isSelectedWithChoiceMode(position)) {
             dispatchSelect(position, true);
