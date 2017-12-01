@@ -100,6 +100,10 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         return mSelectedPosition;
     }
 
+    public void resetSelection() {
+        mSelectedPosition = AdapterView.INVALID_POSITION;
+    }
+
     protected void updateItemView(RvHolder holder, boolean selected) {
         holder.itemView.setSelected(selected);
     }
