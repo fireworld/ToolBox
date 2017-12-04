@@ -229,6 +229,11 @@ public class ViewHolder {
         return (T) getView(viewResId).getTag(key);
     }
 
+    public ViewHolder setLayoutParams(@IdRes int viewResId, ViewGroup.LayoutParams params) {
+        getView(viewResId).setLayoutParams(params);
+        return this;
+    }
+
     public ViewHolder setText(@IdRes int viewResId, CharSequence text) {
         TextView view = getView(viewResId);
         view.setText(text);
