@@ -79,7 +79,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         return mChoiceMode;
     }
 
-    public void setOnItemSelectedListener(OnItemSelectedChangedListener listener) {
+    public void setOnItemSelectedChangedListener(OnItemSelectedChangedListener listener) {
         mSelectedListener = listener;
     }
 
