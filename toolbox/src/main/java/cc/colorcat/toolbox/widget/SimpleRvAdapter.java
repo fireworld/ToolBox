@@ -9,11 +9,11 @@ import java.util.List;
  * xx.ch@outlook.com
  */
 public abstract class SimpleRvAdapter<T> extends RvAdapter {
-    private final List<T> mData;
+    private final List<? extends T> mData;
     @LayoutRes
     private final int mLayoutResId;
 
-    public SimpleRvAdapter(List<T> data, @LayoutRes int layoutResId) {
+    public SimpleRvAdapter(List<? extends T> data, @LayoutRes int layoutResId) {
         mData = data;
         mLayoutResId = layoutResId;
     }
