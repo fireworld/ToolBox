@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
         final int size = getItemCount();
         if (size > 0) {
             mRecord.clear();
-            mRecord.addAll(create(Boolean.FALSE, size));
+            mRecord.addAll(createList(Boolean.FALSE, size));
         }
         registerAdapterDataObserver(mObserver);
     }
@@ -51,7 +50,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
             super.onChanged();
             Log.i(TAG, "onChanged");
             mRecord.clear();
-            mRecord.addAll(create(Boolean.FALSE, getItemCount()));
+            mRecord.addAll(createList(Boolean.FALSE, getItemCount()));
             Log.d(TAG, mRecord.toString());
         }
 
@@ -74,7 +73,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
         public void onItemRangeInserted(int positionStart, int itemCount) {
             super.onItemRangeInserted(positionStart, itemCount);
             Log.i(TAG, "onItemRangeInserted, start = " + positionStart + ", count = " + itemCount);
-            mRecord.addAll(positionStart, create(Boolean.FALSE, itemCount));
+            mRecord.addAll(positionStart, createList(Boolean.FALSE, itemCount));
             Log.d(TAG, mRecord.toString());
         }
 
@@ -103,9 +102,11 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
         }
     };
 
-    private static List<Boolean> create(Boolean defaultValue, int size) {
-        Boolean[] booleans = new Boolean[size];
-        Arrays.fill(booleans, defaultValue);
-        return Arrays.asList(booleans);
+    private static List<Boolean> createList(Boolean defaultValue, int size) {
+        List<Boolean> result = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            result.add(defaultValue);
+        }
+        return result;
     }
 }
