@@ -185,6 +185,11 @@ public class Flow<T> {
         return this;
     }
 
+    public Flow<T> reverse() {
+        Collections.reverse(original);
+        return this;
+    }
+
     public Flow<T> collect(Action1<List<T>> action) {
         action.call(new ArrayList<>(original));
         return this;
