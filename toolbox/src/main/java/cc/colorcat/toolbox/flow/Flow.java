@@ -16,6 +16,17 @@ public class Flow<T> {
         return new Flow<>(new ArrayList<T>());
     }
 
+    public static <T> Flow<T> merge(Collection<? extends T> c1, Collection<? extends T> c2) {
+        List<T> ts = new ArrayList<>(c1.size() + c2.size());
+        ts.addAll(c1);
+        ts.addAll(c2);
+        return Flow.operate(ts);
+    }
+
+    public static <T1, T2, R> Flow<? extends R> zip(Flow<? extends T1> f1, Flow<? extends T2> f2, Func2<? super T1, ? super T2, ? extends R> func) {
+        return f1.zip(f2, func);
+    }
+
     public static <T> Flow<T> just(T value) {
         return from(Collections.singletonList(value));
     }
@@ -45,7 +56,12 @@ public class Flow<T> {
         return this;
     }
 
-    public <R, O> Flow<R> combine(Flow<? extends O> flow, Func2<? super T, ? super O, ? extends R> func) {
+    public Flow<T> concat(Collection<? extends T> ts) {
+        original.addAll(ts);
+        return this;
+    }
+
+    public <R, O> Flow<R> zip(Flow<? extends O> flow, Func2<? super T, ? super O, ? extends R> func) {
         int size = Math.min(original.size(), flow.original.size());
         List<R> newList = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
@@ -109,8 +125,8 @@ public class Flow<T> {
         return -1;
     }
 
-    public boolean exists(Func1<? super T, Boolean> func) {
-        return indexOf(func) != -1;
+    public Flow<Boolean> exists(Func1<? super T, Boolean> func) {
+        return Flow.just(indexOf(func) != -1);
     }
 
     public boolean allMatch(Func1<? super T, Boolean> func) {
@@ -187,6 +203,11 @@ public class Flow<T> {
 
     public Flow<T> reverse() {
         Collections.reverse(original);
+        return this;
+    }
+
+    public Flow<T> sorted(Comparator<? super T> comparator) {
+        Collections.sort(original, comparator);
         return this;
     }
 
