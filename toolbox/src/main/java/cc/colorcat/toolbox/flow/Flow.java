@@ -16,7 +16,7 @@ public class Flow<T> {
         return new Flow<>(new ArrayList<T>());
     }
 
-    public static <T> Flow<T> merge(Collection<? extends T> c1, Collection<? extends T> c2) {
+    public static <T> Flow<T> concat(Collection<? extends T> c1, Collection<? extends T> c2) {
         List<T> ts = new ArrayList<>(c1.size() + c2.size());
         ts.addAll(c1);
         ts.addAll(c2);
@@ -48,10 +48,10 @@ public class Flow<T> {
     }
 
     public Flow<T> raise(Func0<? extends Flow<? extends T>> func) {
-        return merge(func.apply());
+        return concat(func.apply());
     }
 
-    public Flow<T> merge(Flow<? extends T> flow) {
+    public Flow<T> concat(Flow<? extends T> flow) {
         original.addAll(flow.original);
         return this;
     }
@@ -97,7 +97,7 @@ public class Flow<T> {
     public <R> Flow<R> flatMap(Func1<? super T, ? extends Flow<? extends R>> func) {
         Flow<R> newFlow = Flow.create();
         for (int i = 0, size = original.size(); i < size; ++i) {
-            newFlow.merge(func.apply(original.get(i)));
+            newFlow.concat(func.apply(original.get(i)));
         }
         return newFlow;
     }
