@@ -1,12 +1,6 @@
 package cc.colorcat.toolbox.flow;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class Flow<T> {
@@ -102,7 +96,7 @@ public class Flow<T> {
         return newFlow;
     }
 
-    public <R> Flow<R> mapAll(Func1<? super List<? super T>, ? extends R> func) {
+    public <R> Flow<R> mapAll(Func1<List<T>, ? extends R> func) {
         return Flow.just(func.apply(new ArrayList<>(original)));
     }
 
@@ -204,12 +198,12 @@ public class Flow<T> {
         return this;
     }
 
-    public Flow<T> collect(Action1<? super List<? super T>> action) {
+    public Flow<T> collect(Action1<List<T>> action) {
         action.call(new ArrayList<>(original));
         return this;
     }
 
-    public Flow<T> collectSkipEmpty(Action1<? super List<? super T>> action) {
+    public Flow<T> collectSkipEmpty(Action1<List<T>> action) {
         if (!original.isEmpty()) {
             action.call(new ArrayList<>(original));
         }
