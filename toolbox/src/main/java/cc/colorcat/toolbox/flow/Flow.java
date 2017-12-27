@@ -1,6 +1,12 @@
 package cc.colorcat.toolbox.flow;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Flow<T> {
@@ -96,7 +102,7 @@ public class Flow<T> {
         return newFlow;
     }
 
-    public <R> Flow<R> mapAll(Func1<List<T>, ? extends R> func) {
+    public <R> Flow<R> mapAll(Func1<? super List<T>, ? extends R> func) {
         return Flow.just(func.apply(new ArrayList<>(original)));
     }
 
@@ -123,13 +129,13 @@ public class Flow<T> {
         return Flow.just(indexOf(func) != -1);
     }
 
-    public boolean allMatch(Func1<? super T, Boolean> func) {
+    public Flow<Boolean> allMatch(Func1<? super T, Boolean> func) {
         for (int i = 0, size = original.size(); i < size; ++i) {
             if (!func.apply(original.get(i))) {
-                return false;
+                return Flow.just(Boolean.FALSE);
             }
         }
-        return true;
+        return Flow.just(Boolean.TRUE);
     }
 
     public Flow<T> remove(Func1<? super T, Boolean> func) {
@@ -198,20 +204,21 @@ public class Flow<T> {
         return this;
     }
 
-    public Flow<T> collect(Action1<List<T>> action) {
+    public Flow<T> collect(Action1<? super List<T>> action) {
         action.call(new ArrayList<>(original));
         return this;
     }
 
-    public Flow<T> collectSkipEmpty(Action1<List<T>> action) {
+    public Flow<T> collectSkipEmpty(Action1<? super List<T>> action) {
         if (!original.isEmpty()) {
             action.call(new ArrayList<>(original));
         }
         return this;
     }
 
-    public void complete(Action0 action) {
+    public Flow<T> complete(Action0 action) {
         action.call();
+        return this;
     }
 
     public List<T> original() {
