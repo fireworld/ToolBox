@@ -1,6 +1,12 @@
 package cc.colorcat.toolbox.flow;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Flow<T> {
@@ -14,10 +20,6 @@ public class Flow<T> {
 
     public static <T> Flow<T> create() {
         return new Flow<>(new ArrayList<T>());
-    }
-
-    public static <T> Flow<T> create(int capacity) {
-        return new Flow<>(new ArrayList<T>(capacity));
     }
 
     public static <T> Flow<T> just(T value) {
@@ -88,9 +90,8 @@ public class Flow<T> {
     }
 
     public <R> Flow<R> flatMap(Func1<? super T, ? extends Flow<? extends R>> func) {
-        final int size = original.size();
-        Flow<R> newFlow = Flow.create(size);
-        for (int i = 0; i < size; ++i) {
+        Flow<R> newFlow = Flow.create();
+        for (int i = 0, size = original.size(); i < size; ++i) {
             newFlow.concat(func.apply(original.get(i)));
         }
         return newFlow;
