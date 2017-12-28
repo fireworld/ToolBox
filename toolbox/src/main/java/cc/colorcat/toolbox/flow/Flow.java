@@ -199,6 +199,11 @@ public class Flow<T> {
         return this;
     }
 
+    public Flow<T> count(Action1<? super Integer> action) {
+        action.call(original.size());
+        return this;
+    }
+
     public Flow<T> callElse(Action0Else action0Else) {
         if (original.isEmpty()) {
             action0Else.empty();
