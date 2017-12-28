@@ -219,6 +219,15 @@ public class Flow<T> {
         return this;
     }
 
+    public Flow<T> allElse(Action1Else<? super List<T>> action1Else) {
+        if (original.isEmpty()) {
+            action1Else.empty();
+        } else {
+            action1Else.call(new ArrayList<T>(original));
+        }
+        return this;
+    }
+
     public Flow<T> collect(Action1<? super List<T>> action) {
         action.call(new ArrayList<>(original));
         return this;
