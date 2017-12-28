@@ -1,12 +1,6 @@
 package cc.colorcat.toolbox.flow;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class Flow<T> {
@@ -204,6 +198,27 @@ public class Flow<T> {
         return this;
     }
 
+    public Flow<T> callElse(Action0Else action0Else) {
+        if (original.isEmpty()) {
+            action0Else.empty();
+        } else {
+            action0Else.call();
+        }
+        return this;
+    }
+
+    public Flow<T> eachElse(Action1Else<? super T> action1Else) {
+        final int size = original.size();
+        if (size == 0) {
+            action1Else.empty();
+        } else {
+            for (int i = 0; i < size; ++i) {
+                action1Else.call(original.get(i));
+            }
+        }
+        return this;
+    }
+
     public Flow<T> collect(Action1<? super List<T>> action) {
         action.call(new ArrayList<>(original));
         return this;
@@ -216,9 +231,8 @@ public class Flow<T> {
         return this;
     }
 
-    public Flow<T> complete(Action0 action) {
+    public void complete(Action0 action) {
         action.call();
-        return this;
     }
 
     public List<T> original() {
