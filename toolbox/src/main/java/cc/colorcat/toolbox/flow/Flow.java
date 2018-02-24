@@ -1,6 +1,12 @@
 package cc.colorcat.toolbox.flow;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Flow<T> {
@@ -16,24 +22,13 @@ public class Flow<T> {
         return new Flow<>(new ArrayList<T>());
     }
 
-    public static <T> Flow<T> concat(Collection<? extends T> c1, Collection<? extends T> c2) {
-        List<T> ts = new ArrayList<>(c1.size() + c2.size());
-        ts.addAll(c1);
-        ts.addAll(c2);
-        return Flow.operate(ts);
-    }
-
-    public static <T1, T2, R> Flow<? extends R> zip(Flow<? extends T1> f1, Flow<? extends T2> f2, Func2<? super T1, ? super T2, ? extends R> func) {
-        return f1.zip(f2, func);
-    }
-
     public static <T> Flow<T> just(T value) {
-        return from(Collections.singletonList(value));
+        return Flow.from(Collections.singletonList(value));
     }
 
     @SafeVarargs
     public static <T> Flow<T> from(T... ts) {
-        return from(Arrays.asList(ts));
+        return Flow.from(Arrays.asList(ts));
     }
 
     public static <T> Flow<T> from(Collection<? extends T> ts) {
@@ -62,36 +57,36 @@ public class Flow<T> {
     }
 
     public <R, O> Flow<R> zip(Flow<? extends O> flow, Func2<? super T, ? super O, ? extends R> func) {
-        int size = Math.min(original.size(), flow.original.size());
-        List<R> newList = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            T t = original.get(i);
+        final int size = Math.min(original.size(), flow.original.size());
+        List<R> zipped = new ArrayList<>(size);
+        for (int i = 0; i < size; ++i) {
+            T t = this.original.get(i);
             O o = flow.original.get(i);
             R r = func.apply(t, o);
-            newList.add(r);
+            zipped.add(r);
         }
-        return Flow.operate(newList);
+        return Flow.operate(zipped);
     }
 
     public Flow<T> filter(Func1<? super T, Boolean> func) {
         final int size = original.size();
-        List<T> newList = new ArrayList<>(size);
+        List<T> filtered = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {
             T t = original.get(i);
             if (func.apply(t)) {
-                newList.add(t);
+                filtered.add(t);
             }
         }
-        return Flow.operate(newList);
+        return Flow.operate(filtered);
     }
 
     public <R> Flow<R> map(Func1<? super T, ? extends R> func) {
         final int size = original.size();
-        List<R> newList = new ArrayList<>(size);
+        List<R> mapped = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {
-            newList.add(func.apply(original.get(i)));
+            mapped.add(func.apply(original.get(i)));
         }
-        return Flow.operate(newList);
+        return Flow.operate(mapped);
     }
 
     public <R> Flow<R> flatMap(Func1<? super T, ? extends Flow<? extends R>> func) {
@@ -102,7 +97,7 @@ public class Flow<T> {
         return newFlow;
     }
 
-    public <R> Flow<R> mapAll(Func1<List<T>, ? extends R> func) {
+    public <R> Flow<R> mapAll(Func1<? super List<T>, ? extends R> func) {
         return Flow.just(func.apply(new ArrayList<>(original)));
     }
 
@@ -129,13 +124,13 @@ public class Flow<T> {
         return Flow.just(indexOf(func) != -1);
     }
 
-    public boolean allMatch(Func1<? super T, Boolean> func) {
+    public Flow<Boolean> allMatch(Func1<? super T, Boolean> func) {
         for (int i = 0, size = original.size(); i < size; ++i) {
             if (!func.apply(original.get(i))) {
-                return false;
+                return Flow.just(Boolean.FALSE);
             }
         }
-        return true;
+        return Flow.just(Boolean.TRUE);
     }
 
     public Flow<T> remove(Func1<? super T, Boolean> func) {
@@ -149,22 +144,22 @@ public class Flow<T> {
     }
 
     public Flow<T> take(int count) {
-        int size = Math.min(count, original.size());
-        List<T> newList = new ArrayList<>(size);
+        final int size = Math.min(count, original.size());
+        List<T> took = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {
-            newList.add(original.get(i));
+            took.add(original.get(i));
         }
-        return Flow.operate(newList);
+        return Flow.operate(took);
     }
 
     public Flow<T> takeEnd(int count) {
-        int size = original.size();
-        int realCount = Math.min(count, size);
-        List<T> newList = new ArrayList<>(realCount);
+        final int size = original.size();
+        final int realCount = Math.min(count, size);
+        List<T> took = new ArrayList<>(realCount);
         for (int i = size - realCount; i < size; ++i) {
-            newList.add(original.get(i));
+            took.add(original.get(i));
         }
-        return Flow.operate(newList);
+        return Flow.operate(took);
     }
 
     public T find(Func1<? super T, Boolean> func) {
@@ -187,13 +182,6 @@ public class Flow<T> {
         return null;
     }
 
-    public Flow<T> doOnNext(Action1<? super T> action) {
-        for (int i = 0, size = original.size(); i < size; ++i) {
-            action.call(original.get(i));
-        }
-        return this;
-    }
-
     public Flow<T> forEach(Action1<? super T> action) {
         for (int i = 0, size = original.size(); i < size; ++i) {
             action.call(original.get(i));
@@ -206,17 +194,52 @@ public class Flow<T> {
         return this;
     }
 
-    public Flow<T> sorted(Comparator<? super T> comparator) {
+    public Flow<T> sort(Comparator<? super T> comparator) {
         Collections.sort(original, comparator);
         return this;
     }
 
-    public Flow<T> collect(Action1<List<T>> action) {
+    public Flow<T> count(Action1<? super Integer> action) {
+        action.call(original.size());
+        return this;
+    }
+
+    public Flow<T> callElse(Action0Else action0Else) {
+        if (original.isEmpty()) {
+            action0Else.empty();
+        } else {
+            action0Else.call();
+        }
+        return this;
+    }
+
+    public Flow<T> eachElse(Action1Else<? super T> action1Else) {
+        final int size = original.size();
+        if (size == 0) {
+            action1Else.empty();
+        } else {
+            for (int i = 0; i < size; ++i) {
+                action1Else.call(original.get(i));
+            }
+        }
+        return this;
+    }
+
+    public Flow<T> allElse(Action1Else<? super List<T>> action1Else) {
+        if (original.isEmpty()) {
+            action1Else.empty();
+        } else {
+            action1Else.call(new ArrayList<T>(original));
+        }
+        return this;
+    }
+
+    public Flow<T> collect(Action1<? super List<T>> action) {
         action.call(new ArrayList<>(original));
         return this;
     }
 
-    public Flow<T> collectSkipEmpty(Action1<List<T>> action) {
+    public Flow<T> collectSkipEmpty(Action1<? super List<T>> action) {
         if (!original.isEmpty()) {
             action.call(new ArrayList<>(original));
         }
@@ -225,10 +248,6 @@ public class Flow<T> {
 
     public void complete(Action0 action) {
         action.call();
-    }
-
-    public int size() {
-        return original.size();
     }
 
     public List<T> original() {
