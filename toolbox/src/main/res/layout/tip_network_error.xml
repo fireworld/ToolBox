@@ -4,11 +4,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/retry"
+        android:id="@+id/tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="#FF0000"
         android:lineSpacingExtra="4sp"
         android:text="@string/tip_network_error" />
 </FrameLayout>
