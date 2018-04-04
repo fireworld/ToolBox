@@ -1,6 +1,8 @@
 package cc.colorcat.toolbox;
 
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by cxx on 17-8-15.
@@ -36,6 +38,19 @@ public class Utils {
 
     public static boolean isEmpty(CharSequence text) {
         return text == null || text.length() == 0;
+    }
+
+    public static String decode(String unicode) {
+        StringBuilder builder = new StringBuilder(unicode.length());
+        Matcher matcher = Pattern.compile("\\\\u[0-9a-fA-F]{4}").matcher(unicode);
+        int last = 0;
+        for (int start, end = 0; matcher.find(end); last = end) {
+            start = matcher.start();
+            end = matcher.end();
+            builder.append(unicode.substring(last, start))
+                    .append((char) Integer.parseInt(unicode.substring(start + 2, end), 16));
+        }
+        return builder.append(unicode.substring(last)).toString();
     }
 
     private Utils() {
