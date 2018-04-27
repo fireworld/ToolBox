@@ -29,6 +29,7 @@
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".SearchViewActivity" />
         <activity android:name=".SearchBarActivity" />
+        <activity android:name=".WheelViewActivity" />
     </application>
 
 </manifest>

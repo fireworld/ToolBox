@@ -1,6 +1,7 @@
 package cc.colorcat.toolbox.widget;
 
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -34,9 +35,9 @@ public abstract class SimpleRvAdapter<T> extends RvAdapter {
     }
 
     @Override
-    public void bindView(RvHolder holder, int position) {
+    public void bindView(@NonNull RvHolder holder, int position) {
         bindView(holder, mData.get(position));
     }
 
-    public abstract void bindView(RvHolder holder, T data);
+    public abstract void bindView(@NonNull RvHolder holder, T data);
 }

@@ -42,4 +42,10 @@
         <attr name="queryHint" format="string" />
         <attr name="clearIcon" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="WheelView">
+        <attr name="displayCount" format="integer" />
+        <attr name="itemLayout" format="reference" />
+        <attr name="coverColor" format="color" />
+    </declare-styleable>
 </resources>

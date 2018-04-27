@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
     defaultConfig {
         applicationId "cc.colorcat.util"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -26,18 +28,19 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile(name: 'vangogh', ext: 'aar')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    compile project(':toolbox')
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'io.reactivex:rxjava:1.3.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation(name: 'vangogh', ext: 'aar')
+    implementation project(':toolbox')
+    implementation rootProject.ext.supportAppcompat
+    implementation rootProject.ext.supportDesign
+    implementation rootProject.ext.supportV4
+    implementation rootProject.ext.supportCardView
+    implementation rootProject.ext.supportConstraintLayout
+
+    implementation rootProject.ext.gson
+    implementation rootProject.ext.picasso
+    implementation rootProject.ext.rxjava
+
+    androidTestImplementation rootProject.ext.testEspresso
+    testImplementation rootProject.ext.junit
 }

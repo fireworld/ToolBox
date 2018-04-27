@@ -2,6 +2,7 @@ package cc.colorcat.toolbox.widget;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AdapterView;
 
@@ -40,7 +41,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     private SelectHelper mSelectHelper;
 
     @Override
-    public final void onBindViewHolder(RvHolder holder, int position) {
+    public final void onBindViewHolder(@NonNull RvHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         if (inChoiceMode() && isSelectable(position)) {
             updateItemView(holder, isSelectedWithChoiceMode(position));
@@ -48,7 +49,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         mRecyclerView = recyclerView;
         if (mSelectHelper == null) {
@@ -58,7 +59,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mRecyclerView.removeOnItemTouchListener(mSelectHelper);
         mRecyclerView = null;
@@ -104,7 +105,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         mSelectedPosition = AdapterView.INVALID_POSITION;
     }
 
-    protected void updateItemView(RvHolder holder, boolean selected) {
+    protected void updateItemView(@NonNull RvHolder holder, boolean selected) {
         holder.itemView.setSelected(selected);
     }
 
@@ -123,7 +124,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @LayoutRes
     public abstract int getLayoutResId(int viewType);
 
-    public abstract void bindView(RvHolder holder, int position);
+    public abstract void bindView(@NonNull RvHolder holder, int position);
 
     private void dispatchSelect(int position, boolean selected) {
         if (mChoiceMode == ChoiceMode.SINGLE) {

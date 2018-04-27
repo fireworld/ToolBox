@@ -3,6 +3,7 @@ package cc.colorcat.demo;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -116,7 +117,7 @@ public class FavoritesActivity extends Activity {
         private RvAdapter createRvAdapter() {
             return new SimpleRvAdapter<Favorite>(mFavorites, R.layout.adapter_favorites) {
                 @Override
-                public void bindView(RvHolder holder, final Favorite data) {
+                public void bindView(@NonNull RvHolder holder, final Favorite data) {
                     RvHolder.Helper helper = holder.getHelper();
                     helper.setText(R.id.cb_item, data.getName())
                             .setChecked(R.id.cb_item, data.getChecked() == 1)

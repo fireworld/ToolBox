@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -163,7 +164,7 @@ public class DragViewActivity extends Activity {
     private SimpleRvAdapter<Course> createSimpleRvAdapter() {
         SimpleRvAdapter<Course> adapter = new SimpleRvAdapter<Course>(mList, R.layout.adapter_course_list2) {
             @Override
-            public void bindView(RvHolder holder, Course course) {
+            public void bindView(@NonNull RvHolder holder, Course course) {
                 mHolderStats.add(holder);
                 Log.e("CourseActivity", "SimpleRvAdapter holder size = " + mHolderStats.size());
                 RvHolder.Helper helper = holder.getHelper();
@@ -256,7 +257,7 @@ public class DragViewActivity extends Activity {
             }
 
             @Override
-            public void bindView(RvHolder holder, int position) {
+            public void bindView(@NonNull RvHolder holder, int position) {
                 mHolderStats.add(holder);
                 Log.e("CourseActivity", "RvAdapter holder size = " + mHolderStats.size());
                 RvHolder.Helper helper = holder.getHelper();

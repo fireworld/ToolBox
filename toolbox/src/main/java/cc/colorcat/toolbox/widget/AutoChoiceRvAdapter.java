@@ -1,5 +1,6 @@
 package cc.colorcat.toolbox.widget;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -15,7 +16,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
     private List<Boolean> mRecord = new ArrayList<>();
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         final int size = getItemCount();
         if (size > 0) {
@@ -26,7 +27,7 @@ public abstract class AutoChoiceRvAdapter extends ChoiceRvAdapter {
     }
 
     @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mRecord.clear();
         unregisterAdapterDataObserver(mObserver);
