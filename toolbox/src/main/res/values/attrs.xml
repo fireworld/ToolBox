@@ -48,4 +48,12 @@
         <attr name="itemLayout" format="reference" />
         <attr name="coverColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="SettingItemView">
+        <attr name="layout" format="reference" />
+        <attr name="label" format="string" />
+        <attr name="content" format="string" />
+        <attr name="icon1" format="reference" />
+        <attr name="icon2" format="reference" />
+    </declare-styleable>
 </resources>
