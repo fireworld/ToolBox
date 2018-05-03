@@ -36,7 +36,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     @ChoiceMode
     private int mChoiceMode = ChoiceMode.NONE;
     private int mSelectedPosition = AdapterView.INVALID_POSITION;
-    private OnItemSelectedChangedListener mSelectedListener;
+    private OnItemSelectedChangeListener mSelectedListener;
     private RecyclerView mRecyclerView;
     private SelectHelper mSelectHelper;
 
@@ -80,11 +80,11 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         return mChoiceMode;
     }
 
-    public void setOnItemSelectedChangedListener(OnItemSelectedChangedListener listener) {
+    public void setOnItemSelectedChangeListener(OnItemSelectedChangeListener listener) {
         mSelectedListener = listener;
     }
 
-    public OnItemSelectedChangedListener getOnItemSelectedChangedListener() {
+    public OnItemSelectedChangeListener getOnItemSelectedChangeListener() {
         return mSelectedListener;
     }
 
@@ -191,7 +191,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
 
-    public interface OnItemSelectedChangedListener {
+    public interface OnItemSelectedChangeListener {
 
         void onItemSelectedChanged(int position, boolean selected);
     }
