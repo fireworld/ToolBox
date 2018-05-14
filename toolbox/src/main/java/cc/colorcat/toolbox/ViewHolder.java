@@ -31,6 +31,7 @@ import java.lang.annotation.RetentionPolicy;
  * Created by cxx on 2017/8/10.
  * xx.ch@outlook.com
  */
+@SuppressWarnings("unused")
 public class ViewHolder {
     private final SparseArray<View> mViews = new SparseArray<>();
     protected final View mRoot;
@@ -174,6 +175,15 @@ public class ViewHolder {
 
     public boolean isEnabled(@IdRes int viewResId) {
         return getView(viewResId).isEnabled();
+    }
+
+    public ViewHolder setSelected(@IdRes int viewResId, boolean selected) {
+        getView(viewResId).setSelected(selected);
+        return this;
+    }
+
+    public boolean isSelected(@IdRes int viewResId) {
+        return getView(viewResId).isSelected();
     }
 
     public ViewHolder setPadding(@IdRes int viewResId, int padding) {
