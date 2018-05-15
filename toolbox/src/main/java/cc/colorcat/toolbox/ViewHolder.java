@@ -13,6 +13,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.File;
@@ -399,6 +401,20 @@ public class ViewHolder {
     public ViewHolder setImageBitmap(@IdRes int viewResId, Bitmap bitmap) {
         ImageView view = getView(viewResId);
         view.setImageBitmap(bitmap);
+        return this;
+    }
+
+
+    public ViewHolder setProgress(@IdRes int viewResId, int progress) {
+        ProgressBar pb = getView(viewResId);
+        pb.setProgress(progress);
+        return this;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ViewHolder setProgress(@IdRes int viewResId, int progress, boolean animate) {
+        ProgressBar pb = getView(viewResId);
+        pb.setProgress(progress, animate);
         return this;
     }
 
