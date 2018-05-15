@@ -12,21 +12,17 @@ import android.view.ViewGroup;
  */
 public class LvHolder extends AdapterViewHolder {
 
-    private LvHolder(int position, int viewType, @NonNull ViewGroup parent, @LayoutRes int resId) {
+    private LvHolder(@NonNull ViewGroup parent, @LayoutRes int resId) {
         super(LayoutInflater.from(parent.getContext()).inflate(resId, parent, false));
-        mPosition = position;
-        mViewType = viewType;
     }
 
-    static LvHolder getHolder(int position, int viewType, View convertView, ViewGroup parent, @LayoutRes int resId) {
+    static LvHolder getHolder(View convertView, ViewGroup parent, @LayoutRes int resId) {
         LvHolder holder;
         if (convertView == null) {
-            holder = new LvHolder(position, viewType, parent, resId);
+            holder = new LvHolder(parent, resId);
             holder.getRoot().setTag(holder);
         } else {
             holder = (LvHolder) convertView.getTag();
-            holder.mPosition = position;
-            holder.mViewType = viewType;
         }
         return holder;
     }

@@ -12,7 +12,7 @@ public final class RvHolder extends RecyclerView.ViewHolder {
 
     public RvHolder(View itemView) {
         super(itemView);
-        mHelper = new Helper(itemView);
+        mHelper = new Helper(this);
     }
 
     public Helper getHelper() {
@@ -20,9 +20,23 @@ public final class RvHolder extends RecyclerView.ViewHolder {
     }
 
     public static class Helper extends AdapterViewHolder {
+        private RvHolder mHolder;
 
-        private Helper(View root) {
-            super(root);
+        private Helper(RvHolder holder) {
+            super(holder.itemView);
+            mHolder = holder;
+        }
+
+        public RecyclerView.ViewHolder getViewHolder() {
+            return mHolder;
+        }
+
+        public int getPosition() {
+            return mHolder.getAdapterPosition();
+        }
+
+        public int getViewType() {
+            return mHolder.getItemViewType();
         }
     }
 }

@@ -16,14 +16,11 @@ public abstract class RvAdapter extends RecyclerView.Adapter<RvHolder> {
     @Override
     public final RvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutResId(viewType), parent, false);
-        RvHolder holder = new RvHolder(itemView);
-        holder.getHelper().setViewType(viewType).setPosition(holder.getAdapterPosition());
-        return holder;
+        return new RvHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RvHolder holder, int position) {
-        holder.getHelper().setViewType(holder.getItemViewType()).setPosition(position);
         bindView(holder, position);
     }
 
