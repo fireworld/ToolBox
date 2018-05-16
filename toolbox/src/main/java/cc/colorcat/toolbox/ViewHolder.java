@@ -405,7 +405,6 @@ public class ViewHolder {
         return this;
     }
 
-
     public ViewHolder setProgress(@IdRes int viewResId, int progress) {
         ProgressBar pb = getView(viewResId);
         pb.setProgress(progress);
