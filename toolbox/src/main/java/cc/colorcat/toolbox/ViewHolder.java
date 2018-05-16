@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -415,6 +416,15 @@ public class ViewHolder {
     public ViewHolder setProgress(@IdRes int viewResId, int progress, boolean animate) {
         ProgressBar pb = getView(viewResId);
         pb.setProgress(progress, animate);
+        return this;
+    }
+
+    public ViewHolder setProgressBarColor(@IdRes int viewResId, @ColorInt int color) {
+        ProgressBar pb = getView(viewResId);
+        Drawable pd = pb.getProgressDrawable();
+        if (pd != null) {
+            pd.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        }
         return this;
     }
 
