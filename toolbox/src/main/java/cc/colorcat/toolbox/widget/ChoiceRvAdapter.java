@@ -3,8 +3,11 @@ package cc.colorcat.toolbox.widget;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
-import android.widget.AdapterView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,10 +38,10 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
     @ChoiceMode
     private int mChoiceMode = ChoiceMode.NONE;
-    private int mSelectedPosition = AdapterView.INVALID_POSITION;
+    private int mSelectedPosition = RecyclerView.NO_POSITION;
     private OnItemSelectedChangeListener mSelectedListener;
     private RecyclerView mRecyclerView;
-    private SelectHelper mSelectHelper;
+    private RvSelectHelper mSelectHelper;
 
     @Override
     public final void onBindViewHolder(@NonNull RvHolder holder, int position) {
@@ -53,7 +56,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
         super.onAttachedToRecyclerView(recyclerView);
         mRecyclerView = recyclerView;
         if (mSelectHelper == null) {
-            mSelectHelper = new SelectHelper();
+            mSelectHelper = new RvSelectHelper();
         }
         mRecyclerView.addOnItemTouchListener(mSelectHelper);
     }
@@ -102,7 +105,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     public void resetSelection() {
-        mSelectedPosition = AdapterView.INVALID_POSITION;
+        mSelectedPosition = RecyclerView.NO_POSITION;
     }
 
     protected void updateItemView(@NonNull RvHolder holder, boolean selected) {
@@ -118,7 +121,7 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
     protected boolean isSelectable(int position) {
-        return true;
+        return position != RecyclerView.NO_POSITION;
     }
 
     @LayoutRes
@@ -172,10 +175,39 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
     }
 
 
-    private class SelectHelper extends OnRvItemClickListener {
+    private class RvSelectHelper extends RecyclerView.SimpleOnItemTouchListener {
+        private GestureDetectorCompat mDetector;
+        private RecyclerView mRv;
+
         @Override
-        public void onItemClick(RecyclerView.ViewHolder holder) {
-            super.onItemClick(holder);
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            mRv = rv;
+            dispatchTouchEvent(e);
+            return false;
+        }
+
+        private void dispatchTouchEvent(MotionEvent e) {
+            if (mDetector == null) {
+                mDetector = new GestureDetectorCompat(mRv.getContext(), new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        RecyclerView.ViewHolder holder = findViewHolder(e);
+                        if (holder != null) {
+                            onItemClick(holder);
+                        }
+                        return false;
+                    }
+                });
+            }
+            mDetector.onTouchEvent(e);
+        }
+
+        private RecyclerView.ViewHolder findViewHolder(MotionEvent e) {
+            View child = mRv.findChildViewUnder(e.getX(), e.getY());
+            return child != null ? mRv.getChildViewHolder(child) : null;
+        }
+
+        private void onItemClick(RecyclerView.ViewHolder holder) {
             if (inChoiceMode()) {
                 final int position = holder.getAdapterPosition();
                 if (isSelectable(position)) {
@@ -192,7 +224,6 @@ public abstract class ChoiceRvAdapter extends RvAdapter {
 
 
     public interface OnItemSelectedChangeListener {
-
         void onItemSelectedChanged(int position, boolean selected);
     }
 }
